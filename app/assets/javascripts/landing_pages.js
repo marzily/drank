@@ -13,7 +13,7 @@
                         latitude: position.coords.latitude,
                         longitude: position.coords.longitude
                       };
-    $.post('/landing_page', coordinates);
+    $.post('/map', coordinates);
   }
 
   extractCoordinates();
