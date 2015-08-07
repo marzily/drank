@@ -1,17 +1,20 @@
-$(document).ready(function() {
-  var x = document.getElementById("weather");
-  function getLocation() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-      }
+// $(document).ready(function() {
+  function extractCoordinates() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(coords)
+    } else {
+        var x = document.getElementById("weather");
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
   }
 
-  function showPosition(position) {
-      x.innerHTML = "Latitude: " + position.coords.latitude +
-      "<br>Longitude: " + position.coords.longitude;
+  function coords(position) {
+    var coordinates = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                      };
+    $.post('/landing_page', coordinates);
   }
 
-  getLocation();
-});
+  extractCoordinates();
+// });
