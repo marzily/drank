@@ -1,6 +1,5 @@
 class LandingPagesController < ApplicationController
   def show
-    User.test_method
   end
 
   def index
@@ -11,5 +10,6 @@ class LandingPagesController < ApplicationController
     # google_client_id: 470730291228-cja7fsmc4d0pnegabjqq2k4otleb5dv7.apps.googleusercontent.com
     # google_client_secret: VLVXmxgG9p1Ygt9sTtG7RFt4
 
+    @current_conditions = Weather.current_conditions
   end
 end
