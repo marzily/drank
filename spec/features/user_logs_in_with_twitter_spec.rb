@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "user site access", type: :feature do
   include Capybara::DSL
-  let(:display_data) do
+  let(:weather_data) do
     { city: nil, state: nil, weather: nil }
   end
 
@@ -19,7 +19,7 @@ RSpec.feature "user site access", type: :feature do
                      secret: "chocolate chip pancake" }
     })
 
-    allow_any_instance_of(UsersController).to receive(:display_data).and_return(display_data)
+    allow_any_instance_of(UsersController).to receive(:weather_data).and_return(weather_data)
   end
 
   scenario "logging in with twitter omniauth" do

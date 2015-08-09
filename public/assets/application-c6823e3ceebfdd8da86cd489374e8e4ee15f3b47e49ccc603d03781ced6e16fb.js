@@ -13732,7 +13732,7 @@ return jQuery;
 
 
 
-$(document).ready(function() {
+// $(document).ready(function() {
   function extractCoordinates() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(coords);
@@ -13758,7 +13758,7 @@ $(document).ready(function() {
   }
 
   extractCoordinates();
-});
+// });
 (function() {
 
 
