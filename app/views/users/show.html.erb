@@ -3,5 +3,11 @@
 
 <% if current_user %>
   <p>hello, <%= current_user.name %></p>
+  <br>
+  <%= image_tag current_user.image_url %>
+  <br>
+  <br>
   <%= link_to "Logout", logout_path %>
 <% end %>
+
+<br>
