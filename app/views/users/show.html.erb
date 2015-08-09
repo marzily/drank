@@ -7,7 +7,7 @@
 
 <div id="weather">
   <% if weather_data[:city].nil? || weather_data[:state].nil? %>
-    <h4>Unable to access weather conditions at this time. :(</h4>
+    <p>Unable to access weather conditions. Try refreshing your browser. :)</p>
   <% else %>
     <h3><%= weather_data[:city] %>, <%= weather_data[:state] %></h3>
     <h1><%= weather_data[:temperature] %></h1>
