@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :reroute_unauth_user
 
   def show
+    @display_data = display_data
   end
 
   def reroute_unauth_user

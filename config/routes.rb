@@ -8,5 +8,5 @@ Rails.application.routes.draw do
 
   get 'users/show'
 
-  post '/map', to: 'maps#coords', as: :map_coords
+  post '/map_coords', to: 'maps#coords', as: :map_coords
 end

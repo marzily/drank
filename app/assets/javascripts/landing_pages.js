@@ -11,7 +11,7 @@ $(document).ready(function() {
   function coords(position) {
     var coordinates = { latitude: position.coords.latitude,
                         longitude: position.coords.longitude };
-    $.ajax({  url: "/map",
+    $.ajax({  url: "/map_coords",
               type: "POST",
               data: coordinates,
               success: function() {
