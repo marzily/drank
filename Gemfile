@@ -23,6 +23,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'figaro'
 gem 'yelp', require: 'yelp'
+gem "omniauth-twitter"
+gem "twitter"
+gem "hashie"
 gem 'simplecov', require: false, group: :test
 
 group :development, :test do

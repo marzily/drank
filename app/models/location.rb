@@ -1,3 +1,6 @@
+require 'open-uri'
+require 'json'
+
 class Location
   attr_reader :response
 
@@ -6,8 +9,11 @@ class Location
   end
 
   def json_response(coords)
-    location = open("http://maps.googleapis.com/maps/api/geocode/json?latlng=#{coords.first},#{coords.last}").read
-    JSON.parse(location)
+    unless coords.nil?
+      location = open("http://maps.googleapis.com/maps/api/geocode/json?latlng=#{coords.first},#{coords.last}").read
+      # &key=#{ENV['google_key']}
+      JSON.parse(location)
+    end
   end
 
   def address_components
