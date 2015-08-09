@@ -10,8 +10,13 @@ RSpec.describe UsersController, type: :controller do
                oauth_token_secret: "pancake with chocolate chips" })
   end
 
+  let(:weather_data) do
+    { city: "Denver", state: "CO", weather: "88" }
+  end
+
   before(:each) do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    allow_any_instance_of(UsersController).to receive(:weather_data).and_return(weather_data)
   end
 
   describe "GET #show" do

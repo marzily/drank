@@ -2,6 +2,10 @@ require "rails_helper"
 
 RSpec.feature "user site access", type: :feature do
   include Capybara::DSL
+  let(:weather_data) do
+    { city: nil, state: nil, weather: nil }
+  end
+
   before(:each) do
     Capybara.app = Drank::Application
     OmniAuth.config.test_mode = true
@@ -14,6 +18,8 @@ RSpec.feature "user site access", type: :feature do
       credentials: { token: "pancake",
                      secret: "chocolate chip pancake" }
     })
+
+    allow_any_instance_of(UsersController).to receive(:weather_data).and_return(weather_data)
   end
 
   scenario "logging in with twitter omniauth" do
