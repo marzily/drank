@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "user site access", type: :feature do
   include Capybara::DSL
   let(:display_data) do
-    { city: "Denver", state: "CO", weather: "88" }
+    { city: nil, state: nil, weather: nil }
   end
 
   before(:each) do
