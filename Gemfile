@@ -21,6 +21,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'figaro'
+gem 'yelp', require: 'yelp'
+gem "omniauth-twitter"
+gem "twitter"
+gem "hashie"
 gem 'simplecov', require: false, group: :test
 
 group :development, :test do
@@ -31,6 +36,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rspec-rails'
+  gem 'capybara'
 end
 
 group :production do
