@@ -20,14 +20,20 @@ class Location
   end
 
   def neighborhood
-    address_components[2]["long_name"]
+    find_criteria('neighborhood', 'long_name')
   end
 
   def city
-    address_components[3]["long_name"]
+    find_criteria('locality', 'long_name')
   end
 
   def state
-    address_components[5]["short_name"]
+    find_criteria('administrative_area_level_1', 'short_name')
+  end
+
+  def find_criteria(type, name)
+    address_components.select do |details|
+      details['types'].include?(type)
+    end.first[name]
   end
 end
