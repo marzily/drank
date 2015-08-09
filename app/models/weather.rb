@@ -2,8 +2,11 @@ require 'open-uri'
 require 'json'
 
 class Weather
-
   def self.current_conditions(city, state)
+    city.nil? || state.nil? ? nil : temperature(city, state)
+  end
+
+  def self.temperature(city, state)
     temp_f = nil
     open("http://api.wunderground.com/api/#{ENV['weather_key']}/geolookup/conditions/q/#{state}/#{city}.json") do |f|
       json_string = f.read
@@ -12,5 +15,4 @@ class Weather
     end
     temp_f
   end
-
 end

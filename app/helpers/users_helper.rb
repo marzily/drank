@@ -4,6 +4,6 @@ module UsersHelper
   end
 
   def current_conditions
-    @weather = Weather.current_conditions(session[:city], session[:state])
+    Weather.current_conditions(session[:city], session[:state])
   end
 end
