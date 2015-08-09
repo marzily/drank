@@ -7,7 +7,7 @@ RSpec.feature "landing page", type: :feature do
   end
 
   it "has the name of the app" do
-    expect(page).to have_content("Drank")
+    expect(page).to have_content "Drank"
   end
 
   it "has a link to login" do

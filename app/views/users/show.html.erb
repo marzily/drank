@@ -1,10 +1,4 @@
+<%= render partial: "shared/navbar" %>
 <% if current_user %>
   <h1><%= current_user.name %></h1>
-  <br>
-  <%= image_tag current_user.image_url %>
-  <br>
-  <br>
-  <%= link_to "Logout", logout_path %>
 <% end %>
-
-<br>

@@ -2,12 +2,8 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(oauth)
 
-    if user
-      session[:user_id] = user.id
-      redirect_to users_show_path
-    else
-      redirect_to root_path
-    end
+    session[:user_id] = user.id
+    redirect_to users_show_path
   end
 
   def destroy
