@@ -1,5 +1,3 @@
-require 'yelp'
-
 class User < ActiveRecord::Base
   def self.from_omniauth(auth_info)
     if user = find_by(uid: auth_info.extra.raw_info.user_id)
@@ -15,19 +13,11 @@ class User < ActiveRecord::Base
   end
 
   def twitter_client
-    @client ||= Twitter::REST::Client.new do |config|
-      config.consumer_key = ENV["twitter_key"]
-      config.consumer_secret = ENV["twitter_secret"]
-      config.access_token = oauth_token
-      config.access_token_secret = oauth_token_secret
+  @client ||= Twitter::REST::Client.new do |config|
+    config.consumer_key = ENV["twitter_key"]
+    config.consumer_secret = ENV["twitter_secret"]
+    config.access_token = oauth_token
+    config.access_token_secret = oauth_token_secret
     end
-  end
-
-  def yelp_client
-    @client ||= Yelp::Client.new({ consumer_key: ENV['yelp_key'],
-                                   consumer_secret: ENV['yelp_secret'],
-                                   token: ENV['yelp_token'],
-                                   token_secret: ENV['yelp_token_secret']
-                                 })
   end
 end
