@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe Location, type: :model do
   let(:location) do
     Location.new
   end
