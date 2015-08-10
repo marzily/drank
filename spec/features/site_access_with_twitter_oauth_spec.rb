@@ -34,6 +34,7 @@ RSpec.feature "user site access", type: :feature do
     expect(current_path).to eq "/users/show"
     expect(page).to have_content("Margie")
     expect(page).to have_content("Logout")
+
   end
 
   scenario "logging out" do
@@ -44,5 +45,19 @@ RSpec.feature "user site access", type: :feature do
     click_link "Logout"
     expect(current_path).to eq root_path
     expect(page).to_not have_content("Margie")
+  end
+
+  scenario "returning user" do
+    visit "/"
+    click_link "Login"
+    expect(current_path).to eq "/users/show"
+
+    click_link "Logout"
+    expect(current_path).to eq root_path
+
+    click_link "Login"
+    expect(current_path).to eq "/users/show"
+    expect(page).to have_content("Margie")
+    expect(page).to have_content("Logout")
   end
 end
