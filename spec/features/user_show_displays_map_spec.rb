@@ -1,13 +1,13 @@
 require "rails_helper"
 
-RSpec.feature "weather display on user show page", type: :feature do
+RSpec.feature "map display on user show page", type: :feature do
   let(:user) do
     User.create({ name: "Margie",
                   screen_name: "margie",
                   uid: "12345",
                   image_url: nil,
                   oauth_token: "pancake",
-                  oauth_token_secret: "pancake with chocolate chips" })
+                  oauth_token_secret: "chocolate chip pancakes" })
   end
 
   let(:session) do
@@ -24,17 +24,8 @@ RSpec.feature "weather display on user show page", type: :feature do
     visit users_show_path
   end
 
-  scenario "displays user's name" do
+  scenario "displays map" do
     expect(current_path).to eq "/users/show"
-    expect(page).to have_content "Margie"
-  end
-
-  scenario "displays user's location" do
-    expect(page).to have_content(session['location']["city"])
-    expect(page).to have_content(session['location']["state"])
-  end
-
-  scenario "displays current weather for location" do
-    expect(page).to have_content("88")
+    expect(page).to have_css("img[src*='https://maps.googleapis.com/maps/api/staticmap?center=#{session['location']['latitude']},#{session['location']['longitude']}&zoom=14&size=600x600']")
   end
 end

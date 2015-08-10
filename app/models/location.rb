@@ -10,8 +10,8 @@ class Location
 
   def json_response(coords)
     unless coords.empty?
-      location = open("http://maps.googleapis.com/maps/api/geocode/json?latlng=#{coords[:latitude]},#{coords[:longitude]}").read
-      JSON.parse(location)
+      response = open("http://maps.googleapis.com/maps/api/geocode/json?latlng=#{coords[:latitude]},#{coords[:longitude]}").read
+      JSON.parse(response)
     end
   end
 

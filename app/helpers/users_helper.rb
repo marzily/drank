@@ -1,9 +1,9 @@
 module UsersHelper
-  def weather_data
-    { city: session[:city], state: session[:state], temperature: current_conditions }
+  def location
+    session['location']
   end
 
   def current_conditions
-    Weather.current_conditions(session[:city], session[:state])
+    Weather.current_conditions(session['location']['city'], session['location']['state'])
   end
 end
