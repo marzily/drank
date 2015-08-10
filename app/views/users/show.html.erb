@@ -2,14 +2,22 @@
 <% if current_user %>
   <h1><%= current_user.name %></h1>
 <% end %>
-
 <br>
 
 <div id="weather">
-  <% if weather_data[:city].nil? || weather_data[:state].nil? %>
-    <p>Unable to access weather conditions. Try refreshing your browser. :)</p>
+  <% if location['city'].nil? || location['state'].nil? %>
+    <p>Unable to access your current location. Please try the following:</p>
+    <ol>
+      <li>Ensure that geolocation is enabled in your broswer.</li>
+      <li>Refresh your browser.</li>
+   </ol>
   <% else %>
-    <h3><%= weather_data[:city] %>, <%= weather_data[:state] %></h3>
-    <h1><%= weather_data[:temperature] %></h1>
+    <h3><%= location['city'] %>, <%= location['state'] %></h3>
+    <h1><%= current_conditions %></h1>
   <% end %>
+</div>
+
+
+<div id="map">
+  <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{location['latitude']},#{location['longitude']}&zoom=14&size=600x600" %>
 </div>

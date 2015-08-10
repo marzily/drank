@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :reroute_unauth_user
 
   def show
-    # @weather_data = weather_data
   end
 
   def reroute_unauth_user
