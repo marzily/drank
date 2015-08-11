@@ -6,6 +6,8 @@ class Weather < ActiveRecord::Base
   validates :max_temp, presence: true, unless: ->(weather){weather.min_temp.present?}
   validate  :temp_range
 
+  has_many  :drinks
+
   def temp_range
     if min_temp && max_temp && min_temp > max_temp
       errors.add(:max_temp, "min temp cannot be greater than max temp")
