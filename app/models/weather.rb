@@ -28,4 +28,22 @@ class Weather < ActiveRecord::Base
     end
     temp_f
   end
+
+  def self.cold
+    @cold ||= Weather.find_by(min_temp: nil)
+  end
+
+  def self.mild
+    @mild ||= Weather.find_by(min_temp: 70)
+  end
+
+  def self.hot
+    @hot ||= Weather.find_by(max_temp: nil)
+  end
+
+  def self.current_range(current_temp)
+    return cold if current_temp <= cold.max_temp
+    return hot if current_temp >= hot.min_temp
+    mild
+  end
 end
