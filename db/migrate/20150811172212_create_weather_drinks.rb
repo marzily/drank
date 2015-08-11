@@ -3,6 +3,8 @@ class CreateWeatherDrinks < ActiveRecord::Migration
     create_table :weather_drinks do |t|
       t.references :weather, index: true, foreign_key: true
       t.references :drink, index: true, foreign_key: true
+
+      t.timestamps null: false
     end
   end
 end

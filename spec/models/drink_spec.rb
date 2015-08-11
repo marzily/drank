@@ -16,4 +16,9 @@ RSpec.describe Drink, type: :model do
   it "is invalid without a drink type" do
     expect(Drink.new(invalid_attributes)).to_not be_valid
   end
+
+  it "can be tied to many weather ranges" do
+    drink = Drink.create(valid_attributes)
+    expect(drink).to respond_to(:weathers)
+  end
 end

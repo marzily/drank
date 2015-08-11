@@ -30,4 +30,8 @@ RSpec.describe Weather, type: :model do
     end
   end
 
+  it "has many drinks" do
+    weather = Weather.create(min_temp: 70, max_temp: 80)
+    expect(weather).to respond_to(:drinks)
+  end
 end
