@@ -1,7 +1,17 @@
 require 'open-uri'
 require 'json'
 
-class Weather
+class Weather < ActiveRecord::Base
+  validates :min_temp, presence: true, unless: ->(weather){weather.max_temp.present?}
+  validates :max_temp, presence: true, unless: ->(weather){weather.min_temp.present?}
+  validate  :temp_range
+
+  def temp_range
+    if min_temp && max_temp && min_temp > max_temp
+      errors.add(:max_temp, "min temp cannot be greater than max temp")
+    end
+  end
+
   def self.current_conditions(city, state)
     city.nil? || state.nil? ? nil : temperature(city, state)
   end
