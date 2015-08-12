@@ -1,5 +1,9 @@
 <%= render partial: "shared/navbar" %>
 
+<% content_for :head do %>
+  <%= javascript_include_tag 'user_show', 'data-turbolinks-track' => true %>
+<% end %>
+
 <% if current_user %>
   <h1><%= current_user.name %></h1>
 <% end %>
@@ -20,17 +24,15 @@
 
 <h4>This weather is perfect for...
   <div class="btn-group">
-      <button type="button" class="btn btn-default"><%= drink_recommendation %></button>
+      <button type="button" class="btn btn-default recommended"><%= drink_recommendation.drink_type %></button>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-        <% drink_types.each do |drink_type| %>
-          <li><a href="#"><%= drink_type %></a></li>
+        <% drinks_by_temp.each do |drink| %>
+          <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
         <% end %>
-        <li role="separator" class="divider"></li>
-        <li><a href="#">Separated link</a></li>
       </ul>
   </div>
 !</h4>
