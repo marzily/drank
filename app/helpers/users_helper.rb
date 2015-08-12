@@ -7,8 +7,11 @@ module UsersHelper
     Weather.current_conditions(session['location']['city'], session['location']['state'])
   end
 
+  def drink_types
+    Weather.current_range(current_conditions).drinks.map(&:drink_type)
+  end
+
   def drink_recommendation
-    weather_condition = Weather.current_range(current_conditions)
-    weather_condition.drinks.sample.drink_type
+    drink_types.sample
   end
 end
