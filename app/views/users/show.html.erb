@@ -17,6 +17,7 @@
   <% end %>
 </div>
 
+<p>This weather is perfect for... <%= drink_recommendation %>!</p>
 
 <div id="map">
   <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{location['latitude']},#{location['longitude']}&zoom=14&size=600x600" %>
