@@ -8,3 +8,7 @@ class MapsController < ApplicationController
     redirect_to users_show_path
   end
 end
+
+# <script async defer
+#   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBD1ckF76MqtDJReVqr84PzSrR2X8gJRL8&callback=initMap">
+# </script>

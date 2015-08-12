@@ -18,6 +18,6 @@ class SearchAPI < ActiveRecord::Base
   # {latitude: 39.7514438, longitude: -105.0718248}
 
   # client.search_by_coordinates({latitude: 39.7514438, longitude: -105.0718248}, {mode: 0, term: 'slushies', limit: 10})
-  
+
 
 end
