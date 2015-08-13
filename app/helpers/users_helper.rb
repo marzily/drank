@@ -12,6 +12,7 @@ module UsersHelper
   end
 
   def drink_recommendation
+    return session[:drink_type] unless session[:drink_type].nil?
     drink = drinks_by_temp.sample
     session[:drink_type] = drink.drink_type
   end
@@ -20,7 +21,7 @@ module UsersHelper
     @search_client ||= SearchAPI.new
   end
 
-  def restaurants
-    search_client.businesses(session[:drink_type], location['latitude'], location['longitude'])
-  end
+  # def restaurants
+  #   search_client.businesses(session[:drink_type], location['latitude'], location['longitude'])
+  # end
 end

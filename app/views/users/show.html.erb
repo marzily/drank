@@ -37,15 +37,10 @@
   </div>
 !</h4>
 
-<%= content_tag :div, id: "restaurants", data: {restaurants: restaurants} do %>
+<%= content_tag :div, id: "restaurants", data: {restaurants: @restaurants} do %>
 <% end %>
 
 <%= content_tag :div, id: "coordinates", data: {lat: location['latitude'], lng: location['longitude']} do %>
 <% end %>
 
 <div id="map"></div>
-
-<!-- <div id="map">
-  <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{location['latitude']},#{location['longitude']}&zoom=14&size=600x600&\
-&markers=color:blue%7C#{location['latitude']},#{location['longitude']}" %>
-</div> -->

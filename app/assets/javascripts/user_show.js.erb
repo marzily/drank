@@ -16,6 +16,22 @@ function updateRecommended() {
             }
         });
   $('.recommended').text(drink_type['drink_type']);
+
+  // $.ajax({  url: "/users/show",
+  //           type: "GET",
+  //           data: restaurants,
+  //           success: function() {
+  //               console.log("rendering");
+  //           },
+  //           error: function(message){
+  //               console.error(message);
+  //           }
+  //       });
+
+  // $( "#map" ).remove();
+  // $( "script" ).remove();
+  // $( "body" ).append( "<div id='map'></div>" );
+  // appendMapURL();
 }
 
 var restaurantList;
@@ -23,11 +39,6 @@ function restaurants() {
   restaurantList = $('#restaurants').data('restaurants');
   return restaurantList;
 }
-
-// on click
-//  ==> drop image
-// ==> get new image url
-// ==> append new image
 
 // map
 function coordinates() {
@@ -41,40 +52,7 @@ function initMap() {
     zoom: 14
   });
 
-// var restaurantHash = restaurantList[0]['hash']
-//
-// var contentString =
-//       '<div class="restaurant">' +
-//       '<h5><a href=' + restaurantHash['url'] + '>' + restaurantHash['name'] + '</a></h5>' +
-//       '<p>' + restaurantHash['location']['display_address'][0] + '</p>' +
-//       '<p>' + restaurantHash['location']['display_address'][1] + '</p>' +
-//       '<ul>' +
-//       '<li><img src=' + restaurantHash['rating_img_url'] + '></li>' +
-//       '<li> ' + restaurantHash['review_count'] + ' reviews' + '</li>' +
-//       '</ul>' +
-//       '</div>';
-//
-//   var infowindow = new google.maps.InfoWindow({
-//     content: contentString
-//   });
-//
-//   var marker = new google.maps.Marker({
-//     position: coordinates(),
-//     map: map,
-//     title: restaurantList[0]['hash']['name']
-//   });
-//   marker.addListener('click', function() {
-//     infowindow.open(map, marker);
-//   });
-
-//
-// propNames.forEach(function(name) {
-//     var desc = Object.getOwnPropertyDescriptor(o, name);
-//     Object.defineProperty(copy, name, desc);
-//   });
-
-
-  restaurants().forEach(function(restaurant) {
+  restaurants().forEach(function (restaurant) {
     var restaurantHash = restaurant['hash'];
 
     var contentString =
@@ -110,7 +88,7 @@ function initMap() {
 
 function appendMapURL() {
   var mapURL = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_key'] %>&callback=initMap'></script>"
-  $( "html" ).append( mapURL );
+  $( "body" ).append( mapURL );
 }
 
 $(document).ready(function() {
