@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @restaurants = restaurants
+    # byebug
   end
 
   def reroute_unauth_user

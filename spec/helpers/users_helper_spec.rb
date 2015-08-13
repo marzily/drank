@@ -20,4 +20,15 @@ RSpec.describe UsersHelper, type: :helper do
   it "returns the current weather conditions" do
     expect(current_conditions).to eq "88"
   end
+
+  it "returns drinks for a given temperature" do
+    cold = Weather.create(min_temp: nil, max_temp: 69)
+    mild = Weather.create(min_temp: 70, max_temp: 89)
+    hot = Weather.create(min_temp: 90, max_temp: nil)
+    mild.drinks.create(drink_type: "iced tea")
+    allow(Weather).to receive(:mild).and_return(mild)
+
+    expect(drinks_by_temp.count).to eq 1
+    expect(drinks_by_temp.first.drink_type).to eq "iced tea"
+  end
 end

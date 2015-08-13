@@ -30,6 +30,7 @@ RSpec.feature "user site access", type: :feature do
     allow_any_instance_of(UsersHelper).to receive(:location).and_return(location)
     allow_any_instance_of(UsersHelper).to receive(:current_conditions).and_return(current_conditions)
     allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
+    allow_any_instance_of(UsersController).to receive(:restaurants).and_return(["Chipotle"])
   end
 
   scenario "logging in with twitter omniauth" do
@@ -40,7 +41,7 @@ RSpec.feature "user site access", type: :feature do
     click_link "Login"
     expect(current_path).to eq "/users/show"
     expect(page).to have_content("Margie")
-    expect(page).to have_content("Logout")
+    expect(page).to have_link("Logout")
   end
 
   scenario "logging out" do
