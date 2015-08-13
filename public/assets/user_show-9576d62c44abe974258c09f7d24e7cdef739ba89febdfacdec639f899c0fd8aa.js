@@ -76,6 +76,7 @@ function initMap() {
 
   restaurants().forEach(function(restaurant) {
     var restaurantHash = restaurant['hash'];
+    var restaurantNameTag = restaurantHash['name'].split(' ').join('');
 
     var contentString =
       '<div class="restaurant">' +
@@ -88,28 +89,28 @@ function initMap() {
       '</ul>' +
       '</div>';
 
-    eval("infowindow" + restaurantList.indexOf(restaurant) + " = " + "new google.maps.InfoWindow({ content: contentString })");
+    eval("infowindow-" + restaurantNameTag + " = " + "new google.maps.InfoWindow({ content: contentString })");
 
     var rest_coord = {
       lat: restaurantHash['location']['coordinate']['latitude'],
       lng: restaurantHash['location']['coordinate']['longitude']
     };
 
-    eval("marker" + restaurantList.indexOf(restaurant) + "=" + "new google.maps.Marker({" +
+    eval("marker-" + restaurantNameTag + "=" + "new google.maps.Marker({" +
       "position: rest_coord," +
       "map: map," +
-      "title: restaurantHash['name']" +
+      "title: restaurantNameTag" +
     "})");
 
-    eval("marker" + restaurantList.indexOf(restaurant)).addListener('click', function() {
-         eval("infowindow" + restaurantList.indexOf(restaurant)).open(map, eval("marker" + restaurantList.indexOf(restaurant)));
+    eval("marker-" + restaurantNameTag).addListener('click', function() {
+         eval("infowindow-" + restaurantNameTag).open(map, eval("marker-" + restaurantNameTag));
      });
   });
 
 }
 
 function appendMapURL() {
-  var mapURL = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_key'] %>&callback=initMap'></script>"
+  var mapURL = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBD1ckF76MqtDJReVqr84PzSrR2X8gJRL8&callback=initMap'></script>"
   $( "html" ).append( mapURL );
 }
 

@@ -7,8 +7,9 @@ function extractCoordinates() {
   }
 }
 
+var coordinates;
 function coords(position) {
-  var coordinates = { latitude: position.coords.latitude,
+  coordinates = { latitude: position.coords.latitude,
                       longitude: position.coords.longitude };
   $.ajax({  url: "/coords",
             type: "POST",
@@ -24,7 +25,7 @@ function coords(position) {
 
 $(document).ready(function() {
   extractCoordinates();
-})
+});
 
 // jquery cookie for weather instead of reading out from navigator.geolocation
 // background worker to check location in case it's changed
