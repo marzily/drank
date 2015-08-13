@@ -26,6 +26,3 @@ function coords(position) {
 $(document).ready(function() {
   extractCoordinates();
 });
-
-// jquery cookie for weather instead of reading out from navigator.geolocation
-// background worker to check location in case it's changed
