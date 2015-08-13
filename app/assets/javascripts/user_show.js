@@ -39,10 +39,9 @@ var map_url = "<script async defer src='https://maps.googleapis.com/maps/api/js?
 
 function appendMapURL() {
   $( "html" ).append( map_url );
-  console.log( "display map!" );
 }
 
-appendMapURL();
 $(document).ready(function() {
+  appendMapURL();
   dropdownItemSelect();
 });
