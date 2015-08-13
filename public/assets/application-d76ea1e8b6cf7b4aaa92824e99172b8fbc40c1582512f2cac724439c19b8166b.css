@@ -5249,3 +5249,27 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+/* Place all the styles related to the matching controller here.
+ * They will automatically be included in application.css. */
+#map {
+  height: 80%;
+  width: 80%; }
+
+.restaurant h5 {
+  margin-bottom: 3px; }
+
+.restaurant p {
+  margin: 1px; }
+
+.restaurant ul {
+  margin-top: 6px;
+  padding-left: 0; }
+
+.restaurant li {
+  display: inline; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0; }

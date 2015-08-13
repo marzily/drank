@@ -3,11 +3,14 @@ class UsersController < ApplicationController
   before_action :reroute_unauth_user
 
   def show
-    # byebug
-    # {latitude: 39.7514438, longitude: -105.0718248}
+    @restaurants = restaurants
   end
 
   def reroute_unauth_user
     redirect_to root_path unless signed_in?
+  end
+
+  def restaurants
+    search_client.businesses(session[:drink_type], location['latitude'], location['longitude'])
   end
 end

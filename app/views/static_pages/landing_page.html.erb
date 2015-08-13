@@ -3,3 +3,7 @@
 <% unless current_user %>
   <%= link_to "Login", login_path %>
 <% end %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'landing_page', 'data-turbolinks-track' => true %>
+<% end %>
