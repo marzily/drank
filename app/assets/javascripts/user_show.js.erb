@@ -35,7 +35,7 @@ function initMap() {
   });
 }
 
-var map_url = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBD1ckF76MqtDJReVqr84PzSrR2X8gJRL8&callback=initMap'></script>"
+var map_url = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_key'] %>&callback=initMap'></script>"
 
 function appendMapURL() {
   $( "html" ).append( map_url );
