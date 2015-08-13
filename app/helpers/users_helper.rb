@@ -14,4 +14,8 @@ module UsersHelper
   def drink_recommendation
     params[:drink_id].nil? ? drinks_by_temp.sample : Drink.find(params[:drink_id])
   end
+
+  def restaurants
+    SearchAPI.new(drink_type, lat, lng).businesses
+  end
 end

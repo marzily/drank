@@ -1,4 +1,4 @@
-class MapsController < ApplicationController
+class InputsController < ApplicationController
   def coords
     location = Location.new(latitude: params[:latitude], longitude: params[:longitude])
     session[:location] = { city: location.city,

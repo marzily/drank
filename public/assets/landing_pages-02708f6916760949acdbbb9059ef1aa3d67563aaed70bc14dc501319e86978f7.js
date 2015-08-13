@@ -10,7 +10,7 @@ function extractCoordinates() {
 function coords(position) {
   var coordinates = { latitude: position.coords.latitude,
                       longitude: position.coords.longitude };
-  $.ajax({  url: "/map_coords",
+  $.ajax({  url: "/coords",
             type: "POST",
             data: coordinates,
             success: function() {
