@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get 'users/show'
 
   post '/coords', to: 'inputs#coords', as: :coords
+  post '/drink_type', to: 'inputs#drink_type', as: :drink_type
 end

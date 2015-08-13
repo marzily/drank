@@ -1,20 +1,27 @@
-// drop down menu
+// dropdown menu
 function dropdownItemSelect() {
   $('.dropdown-menu').children().children().on("click", updateRecommended);
 }
 
 function updateRecommended() {
-  // $.ajax({  url: "/users/show",
-  //           type: "POST",
-  //           data: coordinates,
-  //           success: function() {
-  //               console.log(coordinates);
-  //           },
-  //           error: function(message){
-  //               console.error(message);
-  //           }
-  //       });
-  $('.recommended').text( $(this).text() );
+  var drink_type = {drink_type: $(this).text()};
+  $.ajax({  url: "/drink_type",
+            type: "POST",
+            data: drink_type,
+            success: function() {
+                console.log(drink_type);
+            },
+            error: function(message){
+                console.error(message);
+            }
+        });
+  $('.recommended').text(drink_type['drink_type']);
+}
+
+var restaurantList;
+function restaurants() {
+  restaurantList = $('#restaurants').data('restaurants');
+  return restaurantList;
 }
 
 // on click
@@ -34,11 +41,90 @@ function initMap() {
     zoom: 14
   });
 
- //  var marker = new google.maps.Marker({
- //   position: myLatLng,
- //   map: map,
- //   title: 'Hello World!'
- // });
+restaurants();
+
+console.log(restaurantList[0]['hash']['name'])
+
+var restaurantHash = restaurantList[0]['hash']
+
+var contentString = '<div class="restaurant">' +
+      '<h5><a href=' + restaurantHash['url'] + '>' + restaurantHash['name'] + '</a></h5>' +
+      '<p>' + restaurantHash['location']['display_address'][0] + '</p>' +
+      '<p>' + restaurantHash['location']['display_address'][1] + '</p>' +
+      '<ul>' +
+      '<li><img src=' + restaurantHash['rating_img_url'] + '></li>' +
+      '<li> ' + restaurantHash['review_count'] + ' reviews' + '</li>' +
+      '</ul>' +
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
+
+  var marker = new google.maps.Marker({
+    position: coordinates(),
+    map: map,
+    title: restaurantList[0]['hash']['name']
+  });
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+
+
+
+
+
+  // for (i = 0; i < 1; i++) {
+  //   var contentString = '<div class="restaurant">'+
+  //       '<h5>' + restaurantList[i]['hash']['name'] + '</h5>'+
+  //       // '<div id="bodyContent">'+
+  //       // '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+  //       // 'sandstone rock formation in the southern part of the '+
+  //       // 'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+  //       // 'south west of the nearest large town, Alice Springs; 450&#160;km '+
+  //       // '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+  //       // 'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+  //       // 'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+  //       // 'Aboriginal people of the area. It has many springs, waterholes, '+
+  //       // 'rock caves and ancient paintings. Uluru is listed as a World '+
+  //       // 'Heritage Site.</p>'+
+  //       // '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+  //       // 'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+  //       // '(last visited June 22, 2009).</p>'+
+  //       // '</div>'+
+  //       '</div>';
+  //
+  //   eval("infowindow" + i.toString() + " = " + "new google.maps.InfoWindow({ content: contentString })");
+  //
+  //   var rest_coord = {
+  //     lat: restaurantList[i]['hash']['location']['coordinate']['latitude'],
+  //     lng: restaurantList[i]['hash']['location']['coordinate']['longitude']
+  //   };
+  //
+  //   eval("marker" + i.toString() + "=" + "new google.maps.Marker({" +
+  //     "position: rest_coord," +
+  //     "map: map," +
+  //     "title: restaurantList[i]['hash']['name']" +
+  //   "})");
+  //
+  //   eval("marker" + i.toString()).addListener('click', function() {
+  //        eval("infowindow" + i.toString()).open(map, eval("marker" + i.toString()));
+  //    });
+  //
+  //  }
+
+  // for (i = 0; i < restaurants().length; i++) {
+  //   var rest_coord = {
+  //     lat: restaurantList[i]['hash']['location']['coordinate']['latitude'],
+  //     lng: restaurantList[i]['hash']['location']['coordinate']['longitude']
+  //   };
+  //
+  //   var marker = new google.maps.Marker({
+  //    position: rest_coord,
+  //    map: map,
+  //    title: restaurantList[i]['hash']['name']
+  //   });
+  // }
 }
 
 function appendMapURL() {

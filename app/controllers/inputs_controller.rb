@@ -7,4 +7,9 @@ class InputsController < ApplicationController
                            longitude: params[:longitude] }
     redirect_to users_show_path
   end
+
+  def drink_type
+    session[:drink_type] = params[:drink_type]
+    redirect_to users_show_path
+  end
 end

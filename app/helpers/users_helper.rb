@@ -4,7 +4,7 @@ module UsersHelper
   end
 
   def current_conditions
-    Weather.current_conditions(session['location']['city'], session['location']['state'])
+    Weather.current_conditions(location['city'], location['state'])
   end
 
   def drinks_by_temp
@@ -12,10 +12,15 @@ module UsersHelper
   end
 
   def drink_recommendation
-    params[:drink_id].nil? ? drinks_by_temp.sample : Drink.find(params[:drink_id])
+    drink = drinks_by_temp.sample
+    session[:drink_type] = drink.drink_type
+  end
+
+  def search_client
+    @search_client ||= SearchAPI.new
   end
 
   def restaurants
-    SearchAPI.new(drink_type, lat, lng).businesses
+    search_client.businesses(session[:drink_type], location['latitude'], location['longitude'])
   end
 end

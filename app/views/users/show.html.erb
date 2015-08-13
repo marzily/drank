@@ -24,7 +24,7 @@
 
 <h4>This weather is perfect for...
   <div class="btn-group">
-      <button type="button" class="btn btn-default recommended"><%= drink_recommendation.drink_type %></button>
+      <button type="button" class="btn btn-default recommended"><%= drink_recommendation %></button>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
@@ -37,6 +37,8 @@
   </div>
 !</h4>
 
+<%= content_tag :div, id: "restaurants", data: {restaurants: restaurants} do %>
+<% end %>
 
 <%= content_tag :div, id: "coordinates", data: {lat: location['latitude'], lng: location['longitude']} do %>
 <% end %>
