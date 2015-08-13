@@ -1,5 +1,4 @@
 require 'yelp'
-# remove from db
 
 class SearchAPI
   attr_reader :client
