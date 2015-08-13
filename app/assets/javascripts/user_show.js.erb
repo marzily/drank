@@ -86,12 +86,6 @@ function initMap() {
 
 }
 
-function appendMapURL() {
-  var mapURL = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_key'] %>&callback=initMap'></script>"
-  $( "body" ).append( mapURL );
-}
-
 $(document).ready(function() {
   dropdownItemSelect();
-  appendMapURL();
 });

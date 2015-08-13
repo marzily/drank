@@ -42,8 +42,8 @@ class Weather < ActiveRecord::Base
   end
 
   def self.current_range(current_temp)
-    return cold if current_temp <= cold.max_temp
-    return hot if current_temp >= hot.min_temp
+    return cold if current_temp.to_i <= cold.max_temp
+    return hot if current_temp.to_i >= hot.min_temp
     mild
   end
 end
