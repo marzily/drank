@@ -8,7 +8,13 @@ RSpec.feature "user site access", type: :feature do
 
   let(:current_conditions) { "88" }
 
+  let(:drink) { Drink.create(drink_type: "iced tea") }
+
   before(:each) do
+    Weather.create(min_temp: nil, max_temp: 69)
+    Weather.create(min_temp: 70, max_temp: 89)
+    Weather.create(min_temp: 90, max_temp: nil)
+
     Capybara.app = Drank::Application
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
@@ -23,6 +29,7 @@ RSpec.feature "user site access", type: :feature do
 
     allow_any_instance_of(UsersHelper).to receive(:location).and_return(location)
     allow_any_instance_of(UsersHelper).to receive(:current_conditions).and_return(current_conditions)
+    allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
   end
 
   scenario "logging in with twitter omniauth" do
@@ -31,10 +38,10 @@ RSpec.feature "user site access", type: :feature do
     expect(current_path).to eq root_path
 
     click_link "Login"
+    save_and_open_page
     expect(current_path).to eq "/users/show"
     expect(page).to have_content("Margie")
     expect(page).to have_content("Logout")
-
   end
 
   scenario "logging out" do
