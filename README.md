@@ -7,7 +7,7 @@ Find restaurants to buy drinks based on your current location and the weather.
 ### Problem
 
 It's 50 degrees outside, where to buy hot chocolate? It's 90 degrees outside,
-where to buy an ice blended strawberry smoothie? It's crunch time at Turing,
+where to buy a nice cold strawberry smoothie? It's crunch time at Turing,
 where to get some soylent?
 
 ### Solution
