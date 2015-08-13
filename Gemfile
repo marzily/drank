@@ -27,6 +27,7 @@ gem "omniauth-twitter"
 gem "twitter"
 gem "hashie"
 gem 'simplecov', require: false, group: :test
+gem "skylight"
 
 group :development, :test do
   gem 'byebug'
