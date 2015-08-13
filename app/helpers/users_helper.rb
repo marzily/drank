@@ -20,8 +20,4 @@ module UsersHelper
   def search_client
     @search_client ||= SearchAPI.new
   end
-
-  # def restaurants
-  #   search_client.businesses(session[:drink_type], location['latitude'], location['longitude'])
-  # end
 end
