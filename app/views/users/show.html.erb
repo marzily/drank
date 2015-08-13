@@ -38,6 +38,9 @@
 !</h4>
 
 
+<%= content_tag :div, id: "coordinates", data: {lat: location['latitude'], lng: location['longitude']} do %>
+<% end %>
+
 <div id="map"></div>
 
 <!-- <div id="map">

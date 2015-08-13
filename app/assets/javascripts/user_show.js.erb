@@ -1,10 +1,10 @@
+// drop down menu
 function dropdownItemSelect() {
   $('.dropdown-menu').children().children().on("click", updateRecommended);
 }
 
 function updateRecommended() {
   $('.recommended').text( $(this).text() );
-  console.log( $( this ).text() );
 }
 
 // on click
@@ -12,6 +12,7 @@ function updateRecommended() {
 // ==> get new image url
 // ==> append new image
 
+// map
 function updateMap(position) {
   var coordinates = { latitude: position.coords.latitude,
                       longitude: position.coords.longitude };
@@ -27,21 +28,26 @@ function updateMap(position) {
         });
 }
 
+function coordinates() {
+  return { lat: $('#coordinates').data('lat'),
+           lng: $('#coordinates').data('lng') };
+}
+
 var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.7514438, lng: -105.0718248},
+    center: coordinates(),
     zoom: 14
   });
 }
 
-var map_url = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_key'] %>&callback=initMap'></script>"
-
 function appendMapURL() {
-  $( "html" ).append( map_url );
+  var mapURL = "<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_key'] %>&callback=initMap'></script>"
+  $( "html" ).append( mapURL );
 }
 
+
 $(document).ready(function() {
-  appendMapURL();
   dropdownItemSelect();
+  appendMapURL();
 });

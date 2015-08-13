@@ -7,8 +7,9 @@ function extractCoordinates() {
   }
 }
 
+var coordinates;
 function coords(position) {
-  var coordinates = { latitude: position.coords.latitude,
+  coordinates = { latitude: position.coords.latitude,
                       longitude: position.coords.longitude };
   $.ajax({  url: "/map_coords",
             type: "POST",
