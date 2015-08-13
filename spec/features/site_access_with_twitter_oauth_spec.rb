@@ -38,7 +38,7 @@ RSpec.feature "user site access", type: :feature do
     expect(current_path).to eq root_path
 
     click_link "Login"
-    save_and_open_page
+    # save_and_open_page
     expect(current_path).to eq "/users/show"
     expect(page).to have_content("Margie")
     expect(page).to have_content("Logout")
