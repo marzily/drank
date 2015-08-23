@@ -11,16 +11,16 @@
 
 
 <div id="weather">
-  <%# if location['city'].nil? || location['state'].nil? %>
+  <% if session[:location]['city'].nil? || session[:location]['state'].nil? %>
     <p>Unable to access your current location. Please try the following:</p>
     <ol>
       <li>Ensure that geolocation is enabled in your broswer.</li>
       <li>Refresh your browser.</li>
    </ol>
-  <%# else %>
-    <h3><%#= location['city'] %>, <%#= location['state'] %></h3>
+  <% else %>
+    <h3><%= session[:location]['city'] %>, <%= session[:location]['state'] %></h3>
     <h1><%#= current_conditions %></h1>
-  <%# end %>
+  <% end %>
 </div>
 
 <h4>This weather is perfect for...

@@ -18,19 +18,17 @@ function findCityAndState(address_obj) {
       }
     }
   }
+}
 
-  // $.ajax({ url: "/coords",
-  //          type: "POST",
-  //          data: coordinates,
-  //          success: function() {
-  //             console.log(coordinates);
-  //          },
-  //          error: function(message){
-  //             console.error(message);
-  //          }
-  //        });
-
-
+function postCityState() {
+  $.ajax({ url: "/city_state",
+           type: "POST",
+           data: { city: city,
+                   state: state },
+           error: function(message){
+              console.error(message);
+           }
+         });
 }
 
 // user pin
@@ -44,6 +42,7 @@ function selfLocation(results, status) {
 
     var components = results[1]['address_components'];
     components.forEach(findCityAndState);
+    postCityState();
   }
 }
 

@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   resource :users, only: [:show]
 
-  post '/coords', to: 'inputs#coords', as: :coords
-  post '/drink_type', to: 'inputs#drink_type', as: :drink_type
+  post '/coords', to: 'locations#coords'
+  post '/city_state', to: 'locations#city_state'
+  # post '/drink_type', to: 'inputs#drink_type', as: :drink_type
   resources :possible_routes
 end
