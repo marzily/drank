@@ -4,11 +4,11 @@ module UsersHelper
   end
 
   def current_conditions
-    Weather.current_conditions(location['city'], location['state'])
+    # Weather.current_conditions(location['city'], location['state'])
   end
 
   def drinks_by_temp
-    @drinks ||= Weather.current_range(current_conditions).drinks
+    # @drinks ||= Weather.current_range(current_conditions).drinks
   end
 
   def drink_recommendation

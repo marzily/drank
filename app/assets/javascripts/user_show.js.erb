@@ -43,6 +43,7 @@ function selfLocation(results, status) {
     var components = results[1]['address_components'];
     components.forEach(findCityAndState);
     postCityState();
+    currentConditions();
   }
 }
 
@@ -91,6 +92,60 @@ function initMap() {
 
 }
 
+
+function cityLookUp(cityName) {
+  if (cityName.indexOf(" ") !== -1) {
+    return cityName.replace(" ", "_");
+  }
+  return cityName;
+}
+
+// weather
+function currentConditions() {
+
+  var temp_f;
+  $.ajax({
+    url : "http://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + state + "/" + cityLookUp(city) + ".json",
+    dataType : "jsonp",
+    success : function(parsed_json) {
+      temp_f = parsed_json['current_observation']['temp_f'];
+    }
+  });
+
+
+  $.ajax({ url: "/city_state",
+           type: "POST",
+           data: { city: city,
+                   state: state },
+           error: function(message){
+              console.error(message);
+           }
+         });
+
+
+}
+
+
+
+// # def self.current_conditions(city, state)
+// #   city.nil? || state.nil? ? nil : temperature(city, state)
+// # end
+// #
+// # def self.temperature(city, state)
+// #   temp_f = nil
+// #   open("http://api.wunderground.com/api/#{ENV['weather_key']}/geolookup/conditions/q/#{state}/#{city}.json") do |f|
+// #     json_string = f.read
+// #     parsed_json = JSON.parse(json_string)
+// #     temp_f = parsed_json['current_observation']['temp_f']
+// #   end
+// #   temp_f
+// # end
+
+
+
+
+
+
 // dropdown menu
 function dropdownItemSelect() {
   $('.dropdown-menu').children().children().on("click", updateRecommended);
@@ -120,5 +175,5 @@ function restaurants() {
 
 $(document).ready(function() {
   coords();
-  dropdownItemSelect();
+  // dropdownItemSelect();
 });
