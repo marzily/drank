@@ -112,17 +112,16 @@ function currentConditions() {
     }
   });
 
-
-  $.ajax({ url: "/city_state",
+  $.ajax({ url: "/current_conditions",
            type: "POST",
-           data: { city: city,
-                   state: state },
+           data: { temp_f: temp_f },
+           success: function() {
+            console.log(typeof temp_f);
+           },
            error: function(message){
               console.error(message);
            }
          });
-
-
 }
 
 
