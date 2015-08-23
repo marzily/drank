@@ -9,38 +9,41 @@
 <% end %>
 <br>
 
+
 <div id="weather">
-  <% if location['city'].nil? || location['state'].nil? %>
+  <%# if location['city'].nil? || location['state'].nil? %>
     <p>Unable to access your current location. Please try the following:</p>
     <ol>
       <li>Ensure that geolocation is enabled in your broswer.</li>
       <li>Refresh your browser.</li>
    </ol>
-  <% else %>
-    <h3><%= location['city'] %>, <%= location['state'] %></h3>
-    <h1><%= current_conditions %></h1>
-  <% end %>
+  <%# else %>
+    <h3><%#= location['city'] %>, <%#= location['state'] %></h3>
+    <h1><%#= current_conditions %></h1>
+  <%# end %>
 </div>
 
 <h4>This weather is perfect for...
   <div class="btn-group">
-      <button type="button" class="btn btn-default recommended"><%= drink_recommendation %></button>
+      <button type="button" class="btn btn-default recommended"><%#= drink_recommendation %></button>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-        <% drinks_by_temp.each do |drink| %>
-          <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
-        <% end %>
+        <%# drinks_by_temp.each do |drink| %>
+          <li><%#= link_to drink.drink_type, "#", class: drink.id %></li>
+        <%# end %>
       </ul>
   </div>
 !</h4>
 
-<%= content_tag :div, id: "restaurants", data: {restaurants: @restaurants} do %>
-<% end %>
+<%#= content_tag :div, id: "restaurants", data: {restaurants: @restaurants} do %>
+<%# end %>
 
-<%= content_tag :div, id: "coordinates", data: {lat: location['latitude'], lng: location['longitude']} do %>
+<%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
 <% end %>
 
 <div id="map"></div>
+
+<script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_browser_key'] %>&callback=initMap'></script>

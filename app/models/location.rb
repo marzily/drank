@@ -11,6 +11,7 @@ class Location
   def json_response(coords)
     return if coords.empty?
     response = open("http://maps.googleapis.com/maps/api/geocode/json?latlng=#{coords[:latitude]},#{coords[:longitude]}&key=#{ENV['google_geocode_key']}").read
+    # Object {latitude: 39.7514319, longitude: -105.07185729999999}
     JSON.parse(response)
   end
 

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :reroute_unauth_user
 
   def show
-    @restaurants = restaurants
+    # @restaurants = restaurants
     # byebug
   end
 
