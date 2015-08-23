@@ -35,24 +35,6 @@ RSpec.describe Weather, type: :model do
     expect(weather).to respond_to(:drinks)
   end
 
-  describe "current_conditions" do
-    it "doesn't return a temperature if city is missing" do
-      temp = Weather.current_conditions(nil, "CO")
-      expect(temp).to be_nil
-    end
-
-    it "doesn't return a temperature if state is missing" do
-      temp = Weather.current_conditions("Denver", nil)
-      expect(temp).to be_nil
-    end
-
-    it "doesn't return a temperature if citstate is missing" do
-      allow(Weather).to receive(:temperature).and_return("80")
-      temp = Weather.current_conditions("Denver", "CO")
-      expect(temp).to eq "80"
-    end
-  end
-
   describe "temperature ranges" do
     before(:each) do
       Weather.create(min_temp: nil, max_temp: 69)

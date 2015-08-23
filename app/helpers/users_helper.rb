@@ -1,6 +1,6 @@
 module UsersHelper
   def location
-    session['location']
+    session[:location]
   end
 
   def drinks_by_temp
