@@ -5,8 +5,9 @@ Rails.application.routes.draw do
   get 'auth/twitter/callback', to: 'sessions#create'
   get '/logout', to: "sessions#destroy", as: "logout"
 
-  get 'users/show'
+  resource :users, only: [:show]
 
   post '/coords', to: 'inputs#coords', as: :coords
   post '/drink_type', to: 'inputs#drink_type', as: :drink_type
+  resources :possible_routes
 end

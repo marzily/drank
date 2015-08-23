@@ -27,7 +27,7 @@ RSpec.feature "weather display on user show page", type: :feature do
     allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
     allow_any_instance_of(UsersHelper).to receive(:current_conditions).and_return("88")
     allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
-    visit users_show_path
+    visit users_path
   end
 
   scenario "displays user's name" do

@@ -5,11 +5,11 @@ class InputsController < ApplicationController
                            state: location.state,
                            latitude: params[:latitude],
                            longitude: params[:longitude] }
-    redirect_to users_show_path
+    redirect_to users_path
   end
 
   def drink_type
     session[:drink_type] = params[:drink_type]
-    redirect_to users_show_path
+    redirect_to users_path
   end
 end
