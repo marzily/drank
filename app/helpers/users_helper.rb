@@ -3,10 +3,6 @@ module UsersHelper
     session['location']
   end
 
-  def current_conditions
-    # Weather.current_conditions(location['city'], location['state'])
-  end
-
   def drinks_by_temp
     # @drinks ||= Weather.current_range(current_conditions).drinks
   end

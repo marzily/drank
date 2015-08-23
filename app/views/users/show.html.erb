@@ -19,7 +19,7 @@
    </ol>
   <% else %>
     <h3><%= location['city'] %>, <%= location['state'] %></h3>
-    <h1><%= current_conditions %></h1>
+    <h1><%= session[:temp_f] %></h1>
   <% end %>
 </div>
 

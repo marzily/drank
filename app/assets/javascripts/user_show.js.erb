@@ -100,28 +100,27 @@ function cityLookUp(cityName) {
   return cityName;
 }
 
-// weather
-function currentConditions() {
-
-  var temp_f;
-  $.ajax({
-    url : "http://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + state + "/" + cityLookUp(city) + ".json",
-    dataType : "jsonp",
-    success : function(parsed_json) {
-      temp_f = parsed_json['current_observation']['temp_f'];
-    }
-  });
-
+// post current temp
+var temp_f;
+function temp(parsed_json) {
+  temp_f = parsed_json['current_observation']['temp_f'];
   $.ajax({ url: "/current_conditions",
            type: "POST",
            data: { temp_f: temp_f },
-           success: function() {
-            console.log(typeof temp_f);
-           },
            error: function(message){
               console.error(message);
            }
          });
+}
+
+
+// weather
+function currentConditions() {
+  $.ajax({
+    url: "http://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + state + "/" + cityLookUp(city) + ".json",
+    dataType: "jsonp",
+    success: temp
+  });
 }
 
 
