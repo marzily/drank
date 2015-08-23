@@ -18,8 +18,22 @@ function findCityAndState(address_obj) {
       }
     }
   }
+
+  // $.ajax({ url: "/coords",
+  //          type: "POST",
+  //          data: coordinates,
+  //          success: function() {
+  //             console.log(coordinates);
+  //          },
+  //          error: function(message){
+  //             console.error(message);
+  //          }
+  //        });
+
+
 }
 
+// user pin
 function selfLocation(results, status) {
   if (status === 'OK') {
     var marker = new google.maps.Marker({

@@ -31,7 +31,7 @@ RSpec.feature "weather display on user show page", type: :feature do
   end
 
   scenario "displays user's name" do
-    expect(current_path).to eq "/users/show"
+    expect(current_path).to eq "/users"
     expect(page).to have_content "Margie"
   end
 
