@@ -2,11 +2,11 @@ require "rails_helper"
 
 RSpec.feature "user site access", type: :feature do
   include Capybara::DSL
-  let(:session) do
-    { location: { "city" => "Denver",
-                  "state" => "CO",
-                  "latitude" => "39.7392",
-                  "longitude" => "-104.9903" } }
+  let(:location) do
+    { "city" => "Denver",
+      "state" => "CO",
+      "latitude" => "39.7392",
+      "longitude" => "-104.9903" }
   end
 
   let(:current_conditions) { "88" }
@@ -30,7 +30,7 @@ RSpec.feature "user site access", type: :feature do
                      secret: "chocolate chip pancake" }
     })
 
-    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
+    allow_any_instance_of(UsersHelper).to receive(:location).and_return(location)
     allow_any_instance_of(UsersHelper).to receive(:current_conditions).and_return(current_conditions)
     allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
     # allow_any_instance_of(UsersController).to receive(:restaurants).and_return(["Chipotle"])
