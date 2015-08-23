@@ -10,7 +10,7 @@ function extractCoordinates() {
 var coordinates;
 function coords(position) {
   coordinates = { latitude: position.coords.latitude,
-                      longitude: position.coords.longitude };
+                  longitude: position.coords.longitude };
   $.ajax({  url: "/coords",
             type: "POST",
             data: coordinates,
@@ -20,7 +20,7 @@ function coords(position) {
             error: function(message){
                 console.error(message);
             }
-        });
+          });
 }
 
 $(document).ready(function() {
