@@ -116,7 +116,7 @@ function temp(parsed_json) {
 // weather
 function currentConditions() {
   $.ajax({
-    url: "http://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + state + "/" + cityLookUp(city) + ".json",
+    url: "https://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + state + "/" + cityLookUp(city) + ".json",
     dataType: "jsonp",
     success: temp
   });
