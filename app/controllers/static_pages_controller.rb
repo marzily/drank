@@ -5,6 +5,6 @@ class StaticPagesController < ApplicationController
   end
 
   def reroute_auth_user
-    redirect_to users_show_path if signed_in?
+    redirect_to users_path if signed_in?
   end
 end

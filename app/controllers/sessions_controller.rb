@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(oauth)
 
     session[:user_id] = user.id
-    redirect_to users_show_path
+    redirect_to users_path
   end
 
   def destroy

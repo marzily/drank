@@ -2,11 +2,13 @@ require "rails_helper"
 
 RSpec.feature "user site access", type: :feature do
   include Capybara::DSL
-  let(:location) do
-    { "city" => "Denver", "state" => "CO", "latitude" => "39.7392", "longitude" => "-104.9903" }
+  let(:session) do
+    { temp_f: '88',
+      location: { "city" => "Denver",
+                  "state" => "CO",
+                  "latitude" => "39.7392",
+                  "longitude" => "-104.9903" } }
   end
-
-  let(:current_conditions) { "88" }
 
   let(:drink) { Drink.create(drink_type: "iced tea") }
 
@@ -27,10 +29,9 @@ RSpec.feature "user site access", type: :feature do
                      secret: "chocolate chip pancake" }
     })
 
-    allow_any_instance_of(UsersHelper).to receive(:location).and_return(location)
-    allow_any_instance_of(UsersHelper).to receive(:current_conditions).and_return(current_conditions)
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
     allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
-    allow_any_instance_of(UsersController).to receive(:restaurants).and_return(["Chipotle"])
+    # allow_any_instance_of(UsersController).to receive(:restaurants).and_return(["Chipotle"])
   end
 
   scenario "logging in with twitter omniauth" do
@@ -39,7 +40,7 @@ RSpec.feature "user site access", type: :feature do
     expect(current_path).to eq root_path
 
     click_link "Login"
-    expect(current_path).to eq "/users/show"
+    expect(current_path).to eq "/users"
     expect(page).to have_content("Margie")
     expect(page).to have_link("Logout")
   end
@@ -47,7 +48,7 @@ RSpec.feature "user site access", type: :feature do
   scenario "logging out" do
     visit "/"
     click_link "Login"
-    expect(current_path).to eq "/users/show"
+    expect(current_path).to eq "/users"
 
     click_link "Logout"
     expect(current_path).to eq root_path
@@ -57,13 +58,13 @@ RSpec.feature "user site access", type: :feature do
   scenario "returning user" do
     visit "/"
     click_link "Login"
-    expect(current_path).to eq "/users/show"
+    expect(current_path).to eq "/users"
 
     click_link "Logout"
     expect(current_path).to eq root_path
 
     click_link "Login"
-    expect(current_path).to eq "/users/show"
+    expect(current_path).to eq "/users"
     expect(page).to have_content("Margie")
     expect(page).to have_content("Logout")
   end

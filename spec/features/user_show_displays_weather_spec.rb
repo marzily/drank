@@ -11,10 +11,11 @@ RSpec.feature "weather display on user show page", type: :feature do
   end
 
   let(:session) do
-    { 'location' => { "city" => "Denver",
-                      "state" => "CO",
-                      "latitude" => "39.7392",
-                      "longitude" => "-104.9903" } }
+    { temp_f: '88',
+      location: { "city" => "Denver",
+                  "state" => "CO",
+                  "latitude" => "39.7392",
+                  "longitude" => "-104.9903" } }
   end
 
   let(:drink) { Drink.create(drink_type: "iced tea") }
@@ -25,19 +26,18 @@ RSpec.feature "weather display on user show page", type: :feature do
     Weather.create(min_temp: 90, max_temp: nil)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
-    allow_any_instance_of(UsersHelper).to receive(:current_conditions).and_return("88")
-    allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
-    visit users_show_path
+    # allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
+    visit users_path
   end
 
   scenario "displays user's name" do
-    expect(current_path).to eq "/users/show"
+    expect(current_path).to eq "/users"
     expect(page).to have_content "Margie"
   end
 
   scenario "displays user's location" do
-    expect(page).to have_content(session['location']["city"])
-    expect(page).to have_content(session['location']["state"])
+    expect(page).to have_content(session[:location]["city"])
+    expect(page).to have_content(session[:location]["state"])
   end
 
   scenario "displays current weather for location" do

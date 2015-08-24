@@ -10,17 +10,17 @@ function extractCoordinates() {
 var coordinates;
 function coords(position) {
   coordinates = { latitude: position.coords.latitude,
-                      longitude: position.coords.longitude };
-  $.ajax({  url: "/coords",
-            type: "POST",
-            data: coordinates,
-            success: function() {
-                console.log(coordinates);
-            },
-            error: function(message){
-                console.error(message);
-            }
-        });
+                  longitude: position.coords.longitude };
+  $.ajax({ url: "/coords",
+           type: "POST",
+           data: coordinates,
+           success: function() {
+              console.log(coordinates);
+           },
+           error: function(message){
+              console.error(message);
+           }
+         });
 }
 
 $(document).ready(function() {
