@@ -11,5 +11,4 @@ Rails.application.routes.draw do
   post '/city_state', to: 'locations#city_state'
   post '/current_conditions', to: 'weather#current_conditions'
   # post '/drink_type', to: 'inputs#drink_type', as: :drink_type
-  resources :possible_routes
 end
