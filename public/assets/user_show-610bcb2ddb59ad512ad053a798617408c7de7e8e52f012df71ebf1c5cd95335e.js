@@ -37,7 +37,7 @@ function selfLocation(results, status) {
     var marker = new google.maps.Marker({
       position: coordinates,
       map: map,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+      icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
     });
 
     var components = results[1]['address_components'];
