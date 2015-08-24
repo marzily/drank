@@ -2,7 +2,6 @@
 
 <% content_for :head do %>
   <%= javascript_include_tag 'user_show', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'map', 'data-turbolinks-track' => true %>
 <% end %>
 
 <% if current_user %>
@@ -26,15 +25,15 @@
 
 <h4>This weather is perfect for...
   <div class="btn-group">
-      <button type="button" class="btn btn-default recommended"><%#= drink_recommendation %></button>
+      <button type="button" class="btn btn-default recommended"><%= session[:drink_type] %></button>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-        <%# drinks_by_temp.each do |drink| %>
-          <li><%#= link_to drink.drink_type, "#", class: drink.id %></li>
-        <%# end %>
+        <% @drinks.each do |drink| %>
+          <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
+        <% end %>
       </ul>
   </div>
 !</h4>
