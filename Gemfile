@@ -18,6 +18,7 @@ gem "omniauth-twitter"
 gem "twitter"
 gem "hashie"
 gem "skylight"
+gem "puma"
 
 group :development, :test do
   gem 'byebug'

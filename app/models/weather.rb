@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'json'
-
 class Weather < ActiveRecord::Base
   validates :min_temp, presence: true, unless: ->(weather){weather.max_temp.present?}
   validates :max_temp, presence: true, unless: ->(weather){weather.min_temp.present?}
@@ -14,10 +11,6 @@ class Weather < ActiveRecord::Base
       errors.add(:max_temp, "min temp cannot be greater than max temp")
     end
   end
-
-  # cold = Weather.create(min_temp: nil, max_temp: 69)
-  # mild = Weather.create(min_temp: 70, max_temp: 89)
-  # hot = Weather.create(min_temp: 90, max_temp: nil)
 
   def self.cold
     @cold ||= Weather.find_by(min_temp: nil)
