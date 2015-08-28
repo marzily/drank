@@ -17,7 +17,7 @@ class Weather < ActiveRecord::Base
   end
 
   def self.mild
-    @mild ||= Weather.find_by(min_temp: 70)
+    @mild ||= Weather.find_by(min_temp: 66)
   end
 
   def self.hot
