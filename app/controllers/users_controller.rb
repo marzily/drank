@@ -1,12 +1,10 @@
 class UsersController < ApplicationController
-  include UsersHelper
   before_action :reroute_unauth_user
 
   def show
-    # @restaurants = restaurants
+    @restaurants = restaurants
     @drinks = drinks_by_temp
     session[:drink_type] = @drinks.sample.drink_type
-    # byebug
   end
 
   def reroute_unauth_user
@@ -18,6 +16,10 @@ class UsersController < ApplicationController
   end
 
   def restaurants
-    search_client.businesses(session[:drink_type], location['latitude'], location['longitude'])
+    search_client.businesses(session[:drink_type], session[:location]['latitude'], session[:location]['longitude'])
+  end
+
+  def search_client
+    @search_client ||= SearchAPI.new
   end
 end

@@ -6,8 +6,8 @@ class LocationsController < ApplicationController
   end
 
   def city_state
-    session[:location]['city']  = params[:city]
-    session[:location]['state'] = params[:state]
+    session[:location][:city]  = params[:city]
+    session[:location][:state] = params[:state]
     redirect_to users_path
   end
 
