@@ -1,14 +1,16 @@
-<%= render partial: "shared/navbar" %>
-
 <% content_for :head do %>
-  <%= javascript_include_tag 'user_show', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'show', 'data-turbolinks-track' => true %>
 <% end %>
+
+<%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
+<% end %>
+
+<%= render partial: "navbar" %>
 
 <% if current_user %>
   <h1><%= current_user.name %></h1>
 <% end %>
 <br>
-
 
 <div id="weather">
   <% if session[:location]['city'].nil? || session[:location]['state'].nil? %>
@@ -25,7 +27,7 @@
 
 <h4>This weather is perfect for...
   <div class="btn-group">
-      <button type="button" class="btn btn-default recommended"><%= session[:drink_type] %></button>
+      <button type="button" class="btn btn-default" id="recommended"><%= @drinks.sample.drink_type %></button>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
@@ -38,11 +40,10 @@
   </div>
 !</h4>
 
-<%= content_tag :div, id: "restaurants", data: {restaurants: @restaurants} do %>
-<% end %>
+<%= render partial: "users/restaurants", locals: { restaurants: @restaurants } %>
 
-<%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
-<% end %>
+<%#= content_tag :div, id: "restaurants", data: { restaurants: restaurants } do %>
+<%# end %>
 
 <div id="map"></div>
 

@@ -10,9 +10,4 @@ class LocationsController < ApplicationController
     session[:location][:state] = params[:state]
     redirect_to users_path
   end
-
-  def drink_type
-    session[:drink_type] = params[:drink_type]
-    redirect_to users_path
-  end
 end

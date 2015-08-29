@@ -1,14 +1,13 @@
 // lat, lng
-var coordinates;
 function coords() {
-  coordinates = { lat: $('#coordinates').data('lat'),
-                  lng: $('#coordinates').data('lng') };
+  return { lat: $('#coordinates').data('lat'),
+           lng: $('#coordinates').data('lng') };
 }
 
 // city, state
 var city;
 var state;
-function findCityAndState(address_obj) {
+function findCityState(address_obj) {
   for (var prop in address_obj) {
     if (prop === 'types') {
       if (address_obj[prop].indexOf('locality') !== -1) {
@@ -25,14 +24,21 @@ function postCityState() {
            type: "POST",
            data: { city: city,
                    state: state },
-           error: function(message){
+           error: function(message) {
               console.error(message);
            }
          });
 }
 
+// load details to user dash
+function loadDeets(components) {
+  components.forEach(findCityState);
+  postCityState();
+  currentConditions();
+}
+
 // user pin
-function selfLocation(results, status) {
+function selfLocation(results, status, coordinates, map) {
   if (status === 'OK') {
     var marker = new google.maps.Marker({
       position: coordinates,
@@ -41,22 +47,28 @@ function selfLocation(results, status) {
     });
 
     var components = results[1]['address_components'];
-    components.forEach(findCityAndState);
-    postCityState();
-    currentConditions();
+    loadDeets(components);
   }
 }
 
+var restaurantList;
+function restaurants() {
+  restaurantList = $('#restaurants').data('restaurants');
+  return restaurantList;
+}
+
 // map
-var map;
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
+  var coordinates = coords();
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: coordinates,
     zoom: 14
   });
 
   var geocoder = new google.maps.Geocoder;
-  geocoder.geocode({'location': coordinates}, selfLocation);
+  geocoder.geocode({'location': coordinates}, function(results, status) {
+    selfLocation(results, status, coordinates, map);
+  });
 
   // restaurants().forEach(function (restaurant) {
   //   var restaurantHash = restaurant['hash'];
@@ -89,7 +101,6 @@ function initMap() {
   //        eval("infowindow" + restaurantList.indexOf(restaurant)).open(map, eval("marker" + restaurantList.indexOf(restaurant)));
   //    });
   // });
-
 }
 
 
@@ -101,13 +112,12 @@ function cityLookUp(cityName) {
 }
 
 // post current temp
-var temp_f;
 function temp(parsed_json) {
-  temp_f = parsed_json['current_observation']['temp_f'];
+  var temp_f = parsed_json['current_observation']['temp_f'];
   $.ajax({ url: "/current_conditions",
            type: "POST",
            data: { temp_f: temp_f },
-           error: function(message){
+           error: function(message) {
               console.error(message);
            }
          });
@@ -124,17 +134,19 @@ function currentConditions() {
 
 // dropdown menu
 function dropdownItemSelect() {
-  $('.dropdown-menu').children().children().on("click", updateRecommended);
+debugger
+  $('.dropdown-menu').children().children().on("click", function() {
+    console.log(this);
+  });
+  // updateRecommended);
 }
 
 function updateRecommended() {
-  var drink_type = {drink_type: $(this).text()};
+  var drink_type = { drink_type: $(this).text() };
   $.ajax({  url: "/drink_type",
             type: "POST",
             data: drink_type,
-            success: function() {
-                console.log(drink_type);
-            },
+            success: console.log(drink_type),
             error: function(message){
                 console.error(message);
             }
@@ -142,14 +154,8 @@ function updateRecommended() {
   $('.recommended').text(drink_type['drink_type']);
 }
 
-var restaurantList;
-function restaurants() {
-  restaurantList = $('#restaurants').data('restaurants');
-  return restaurantList;
-}
-
-
 $(document).ready(function() {
   coords();
-  // dropdownItemSelect();
+  debugger
+  dropdownItemSelect();
 });
