@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
 
     <div class="navbar-header">
@@ -9,7 +9,9 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href=<%= users_path %>>Drank</a>
+      <% if current_user %>
+        <a class="navbar-brand" href=<%= users_path %>><%= current_user.name %></a>
+      <% end %>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

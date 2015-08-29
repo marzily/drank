@@ -1,8 +1,19 @@
-<h1>Drank</h1>
-
-<% unless current_user %>
-  <%= link_to "Login", login_path %>
-<% end %>
+<div class="landing-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center">
+      </div>
+      <div class="col-md-6 text-center landing-page-content">
+        <h1>Drank</h1>
+        <div class="btn-group" role="group" aria-label="...">
+          <% unless current_user %>
+            <%= button_to "Login", login_path, class: "btn btn-default" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% content_for :head do %>
   <%= javascript_include_tag 'landing_page', 'data-turbolinks-track' => true %>
