@@ -5249,8 +5249,17 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
-/* Place all the styles related to the matching controller here.
- * They will automatically be included in application.css. */
+html, body {
+  background: url(/assets/fruit-drink-021c12cb0ddfb87b20255de5f73e21cad98c1ca60ef132769bc256f5bdac784b.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Lato", sans-serif;
+  color: white; }
+
 #map {
   height: 80%;
   width: 80%; }
@@ -5268,8 +5277,18 @@ button.close {
 .restaurant li {
   display: inline; }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0; }
+.landing-page-content {
+  text-align: center;
+  margin-top: 180px;
+  background: rgba(255, 255, 255, 0.5);
+  padding-bottom: 20px;
+  width: 300px;
+  font-weight: bold; }
+
+.landing-page-content h1 {
+  color: #383838;
+  font-size: 500%; }
+
+button {
+  margin: auto;
+  padding: auto; }
