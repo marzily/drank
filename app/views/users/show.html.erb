@@ -2,10 +2,10 @@
   <%= javascript_include_tag 'show', 'data-turbolinks-track' => true %>
 <% end %>
 
+<%= render partial: "navbar" %>
+
 <%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
 <% end %>
-
-<%= render partial: "navbar" %>
 
 <% if current_user %>
   <h1><%= current_user.name %></h1>
@@ -27,7 +27,7 @@
 
 <h4>This weather is perfect for...
   <div class="btn-group">
-      <button type="button" class="btn btn-default" id="recommended"><%= @drinks.sample.drink_type %></button>
+      <button type="button" class="btn btn-default" id="recommended"><%= drink = @drinks.sample.drink_type %></button>
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="caret"></span>
         <span class="sr-only">Toggle Dropdown</span>
@@ -40,10 +40,9 @@
   </div>
 !</h4>
 
-<%= render partial: "users/restaurants", locals: { restaurants: @restaurants } %>
 
-<%#= content_tag :div, id: "restaurants", data: { restaurants: restaurants } do %>
-<%# end %>
+<% restaurants = SearchAPI.new.businesses(drink, session[:location]['latitude'], session[:location]['longitude']) %>
+<%= render partial: "users/restaurants", locals: { restaurants: restaurants } %>
 
 <div id="map"></div>
 

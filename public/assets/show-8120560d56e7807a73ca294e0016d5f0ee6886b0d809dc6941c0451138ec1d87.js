@@ -3,7 +3,7 @@ function initMap() {
   var coordinates = coords();
   var map = new google.maps.Map(document.getElementById('map'), {
     center: coordinates,
-    zoom: 13
+    zoom: 14
   });
 
   var marker = new google.maps.Marker({
@@ -15,39 +15,46 @@ function initMap() {
   var geocoder = new google.maps.Geocoder;
   geocoder.geocode({'location': coordinates}, loadDash);
 
-  var restaurants = $('#restaurants').data('restaurants');
+  //  $.ajax({ url: "/restaurants",
+  //           type: "GET",
+  //           error: function(message) {
+  //              console.error(message);
+  //           }
+  //         });
 
-  for (var i = 0; i < restaurants.length; i++) {
-    var restaurantHash = restaurants[i]['hash'];
+// data: { restaurants: $('#restaurants').data('restaurants') },
 
-    var contentString =
-      '<div class="restaurant">' +
-      '<h5><a href=' + restaurantHash['url'] + '>' + restaurantHash['name'] + '</a></h5>' +
-      '<p>' + restaurantHash['location']['display_address'][0] + '</p>' +
-      '<p>' + restaurantHash['location']['display_address'][1] + '</p>' +
-      '<ul>' +
-      '<li><img src=' + restaurantHash['rating_img_url'] + '></li>' +
-      '<li> ' + restaurantHash['review_count'] + ' reviews' + '</li>' +
-      '</ul>' +
-      '</div>';
-
-    eval("infowindow" + i + " = " + "new google.maps.InfoWindow({ content: contentString })");
-
-    var rest_coord = {
-      lat: restaurantHash['location']['coordinate']['latitude'],
-      lng: restaurantHash['location']['coordinate']['longitude']
-    };
-
-    eval("marker" + i + "=" + "new google.maps.Marker({" +
-      "position: rest_coord," +
-      "map: map," +
-      "title: restaurantHash['name']" +
-    "})");
-
-    eval("marker" + i + ".addListener('click', function() {" +
-         "infowindow" + i + ".open(map, marker" + i + ");" +
-    "});");
-  };
+  // restaurants().forEach(function (restaurant) {
+  //   var restaurantHash = restaurant['hash'];
+  //
+  //   var contentString =
+  //     '<div class="restaurant">' +
+  //     '<h5><a href=' + restaurantHash['url'] + '>' + restaurantHash['name'] + '</a></h5>' +
+  //     '<p>' + restaurantHash['location']['display_address'][0] + '</p>' +
+  //     '<p>' + restaurantHash['location']['display_address'][1] + '</p>' +
+  //     '<ul>' +
+  //     '<li><img src=' + restaurantHash['rating_img_url'] + '></li>' +
+  //     '<li> ' + restaurantHash['review_count'] + ' reviews' + '</li>' +
+  //     '</ul>' +
+  //     '</div>';
+  //
+  //   eval("infowindow" + restaurantList.indexOf(restaurant) + " = " + "new google.maps.InfoWindow({ content: contentString })");
+  //
+  //   var rest_coord = {
+  //     lat: restaurantHash['location']['coordinate']['latitude'],
+  //     lng: restaurantHash['location']['coordinate']['longitude']
+  //   };
+  //
+  //   eval("marker" + restaurantList.indexOf(restaurant) + "=" + "new google.maps.Marker({" +
+  //     "position: rest_coord," +
+  //     "map: map," +
+  //     "title: restaurantHash['name']" +
+  //   "})");
+  //
+  //   eval("marker" + restaurantList.indexOf(restaurant)).addListener('click', function() {
+  //        eval("infowindow" + restaurantList.indexOf(restaurant)).open(map, eval("marker" + restaurantList.indexOf(restaurant)));
+  //    });
+  // });
 }
 
 // lat, lng
@@ -114,17 +121,6 @@ function temp(parsed_json) {
          });
 }
 
-function drinkRestaurants() {
-  $.ajax({ url: "/drink",
-           type: "POST",
-           data: { drink: $('#recommended').text() },
-           success: dropdownItemSelect,
-           error: function(message) {
-              console.error(message);
-           }
-         });
-}
-
 function dropdownItemSelect() {
   $('.dropdown-menu').children().children().on("click", updateRecommended);
 }
@@ -141,6 +137,17 @@ function updateRecommended() {
   $('#recommended').text(drink_type['drink_type']);
 }
 
+// function drinkRestaurants() {
+//   $.ajax({ url: "/drink",
+//            type: "POST",
+//            data: { drink: $('#recommended').text() },
+//            error: function(message) {
+//               console.error(message);
+//            }
+//          });
+// }
+
 $(document).ready(function() {
-  drinkRestaurants();
+  dropdownItemSelect();
+  // drinkRestaurants();
 });
