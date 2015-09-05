@@ -19,9 +19,9 @@ gem "twitter"
 gem "hashie"
 gem "skylight"
 gem "puma"
+gem 'byebug'
 
 group :development, :test do
-  gem 'byebug'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'launchy'
