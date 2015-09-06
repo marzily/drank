@@ -31,16 +31,16 @@ function restaurantMarkers(restaurants) {
   infoWindows = [];
 
   for (var i = 0; i < restaurants.length; i++) {
-    var restaurantHash = restaurants[i]['hash'];
+    var restaurantHash = restaurants[i].hash;
 
     var contentString =
       '<div class="restaurant">' +
-      '<h5><a href=' + restaurantHash['url'] + '>' + restaurantHash['name'] + '</a></h5>' +
-      '<p>' + restaurantHash['location']['display_address'][0] + '</p>' +
-      '<p>' + restaurantHash['location']['display_address'][1] + '</p>' +
+      '<h5><a href=' + restaurantHash.url + '>' + restaurantHash.name + '</a></h5>' +
+      '<p>' + restaurantHash.location.display_address[0] + '</p>' +
+      '<p>' + restaurantHash.location.display_address[1] + '</p>' +
       '<ul>' +
-      '<li><img src=' + restaurantHash['rating_img_url'] + '></li>' +
-      '<li> ' + restaurantHash['review_count'] + ' reviews' + '</li>' +
+      '<li><img src=' + restaurantHash.rating_img_url + '></li>' +
+      '<li> ' + restaurantHash.review_count + ' reviews' + '</li>' +
       '</ul>' +
       '</div>';
 
