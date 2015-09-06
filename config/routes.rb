@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   resource :users, only: [:show]
 
   post '/coords', to: 'locations#coords'
-  post '/city_state', to: 'locations#city_state'
+  get '/city_state', to: 'locations#city_state'
 
-  post '/current_conditions', to: 'weather#current_conditions'
+  get '/current_conditions', to: 'weather#current_conditions'
 
   get '/drink', to: 'restaurants#drink'
   # add drink type as /:drink_type

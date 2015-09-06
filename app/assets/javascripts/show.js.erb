@@ -23,6 +23,7 @@ function coords() {
            lng: $('#coordinates').data('lng') };
 }
 
+// user location on map
 function userMarker() {
   new google.maps.Marker({
     position: coordinates,
@@ -31,11 +32,13 @@ function userMarker() {
   });
 }
 
+// call reverse geocoder
 function geocoder() {
   var geocoder = new google.maps.Geocoder;
   geocoder.geocode({'location': coordinates}, setLocation);
 }
 
+// retrieve city, state
 function setLocation(results, status) {
   if (status === 'OK') var components = results[1].address_components;
 
@@ -61,10 +64,11 @@ function loadDash(location) {
   currentConditions(location);
 }
 
+// post city, state for view
 function postCityState(location) {
   $.ajax({
     url: "/city_state",
-    type: "POST",
+    type: "GET",
     data: location,
     error: function(message) {
       console.error(message);
@@ -83,13 +87,13 @@ function currentConditions(location) {
   });
 }
 
-// post current temp
+// post temp for view
 function temp(parsed_json) {
   var temp_f = parsed_json.current_observation.temp_f;
 
   $.ajax({
     url: "/current_conditions",
-    type: "POST",
+    type: "GET",
     data: { temp_f: temp_f },
     error: function(message) {
       console.error(message);
@@ -97,6 +101,7 @@ function temp(parsed_json) {
   });
 }
 
+// retrieve restaurants from api
 function loadRestaurants(drink) {
   $.ajax({
     url: "/drink",
@@ -110,44 +115,53 @@ function loadRestaurants(drink) {
   });
 }
 
+// create map markers
 var markers = [];
-var infoWindows = [];
 function restaurantMarkers(restaurants) {
-  markers.forEach(function(marker) {
-    marker.setMap(null);
+  var infoWindows = [];
+
+  restaurants.forEach(function(restaurant) {
+    var restaurantHash = restaurant.hash;
+
+    var infoWindow = createInfoWindow(restaurantHash);
+    infoWindows.push(infoWindow);
+
+    var marker = createMarker(restaurantHash);
+    markers.push(marker);
   });
 
-  markers = [];
-  infoWindows = [];
+  attachInfoWindow(markers, infoWindows);
+}
 
-  for (var i = 0; i < restaurants.length; i++) {
-    var restaurantHash = restaurants[i].hash;
+function createInfoWindow(restaurantHash) {
+  var contentString =
+    '<div class="restaurant">' +
+    '<h5><a href=' + restaurantHash.url + '>' + restaurantHash.name + '</a></h5>' +
+    '<p>' + restaurantHash.location.display_address[0] + '</p>' +
+    '<p>' + restaurantHash.location.display_address[1] + '</p>' +
+    '<ul>' +
+    '<li><img src=' + restaurantHash.rating_img_url + '></li>' +
+    '<li> ' + restaurantHash.review_count + ' reviews' + '</li>' +
+    '</ul>' +
+    '</div>';
 
-    var contentString =
-      '<div class="restaurant">' +
-      '<h5><a href=' + restaurantHash.url + '>' + restaurantHash.name + '</a></h5>' +
-      '<p>' + restaurantHash.location.display_address[0] + '</p>' +
-      '<p>' + restaurantHash.location.display_address[1] + '</p>' +
-      '<ul>' +
-      '<li><img src=' + restaurantHash.rating_img_url + '></li>' +
-      '<li> ' + restaurantHash.review_count + ' reviews' + '</li>' +
-      '</ul>' +
-      '</div>';
+  return new google.maps.InfoWindow({ content: contentString });
+}
 
-    infoWindows.push(new google.maps.InfoWindow({ content: contentString }));
+function createMarker(restaurantHash) {
+  var restaurantCoords = {
+    lat: restaurantHash.location.coordinate.latitude,
+    lng: restaurantHash.location.coordinate.longitude
+  };
 
-    var rest_coord = {
-      lat: restaurantHash.location.coordinate.latitude,
-      lng: restaurantHash.location.coordinate.longitude
-    };
+  return new google.maps.Marker({
+    position: restaurantCoords,
+    map: map,
+    title: restaurantHash.name
+  });
+}
 
-    markers.push(new google.maps.Marker({
-      position: rest_coord,
-      map: map,
-      title: restaurantHash.name
-    }));
-  }
-
+function attachInfoWindow(markers, infoWindows) {
   markers.forEach(function(marker, index) {
     marker.addListener('click', function() {
       infoWindows[index].open(map, marker);
@@ -157,23 +171,18 @@ function restaurantMarkers(restaurants) {
 
 function dropdownItemSelect() {
   $('.dropdown-menu').children().children().on("click", function(drinkOption) {
-    updateRecommended(drinkOption);
+    var drink = { drink: $(this).text() };
+    resetMarkers(drink);
+    $('#recommended').text(drink.drink);
   });
-
 }
 
-function updateRecommended(drinkOption) {
-  var drink = { drink: $(drinkOption).text() };
-  $.ajax({  url: "/drink",
-            type: "GET",
-            data: drink,
-            dataType: "json",
-            success: restaurantMarkers,
-            error: function(message) {
-                console.error(message);
-            }
-        });
-  $('#recommended').text(drink.drink);
+function resetMarkers(drink) {
+  markers.forEach(function(marker) {
+    marker.setMap(null);
+  });
+
+  loadRestaurants(drink);
 }
 
 $(document).ready(function() {
