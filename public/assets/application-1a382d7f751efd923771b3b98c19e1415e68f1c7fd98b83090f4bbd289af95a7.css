@@ -5292,3 +5292,29 @@ html, body {
 button {
   margin: auto;
   padding: auto; }
+
+.user-show {
+  text-align: center; }
+
+#weather h1 {
+  font-size: 500%;
+  font-weight: bold; }
+
+#map {
+  height: 80%;
+  width: 80%; }
+
+.restaurant h5 {
+  margin-bottom: 3px; }
+
+.restaurant p {
+  margin: 1px;
+  color: black; }
+
+.restaurant ul {
+  margin-top: 6px;
+  padding-left: 0; }
+
+.restaurant li {
+  display: inline;
+  color: black; }

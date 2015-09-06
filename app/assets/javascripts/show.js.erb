@@ -64,7 +64,7 @@ function loadDash(location) {
   currentConditions(location);
 }
 
-// post city, state for view
+// send city, state for view
 function postCityState(location) {
   $.ajax({
     url: "/city_state",
@@ -87,7 +87,7 @@ function currentConditions(location) {
   });
 }
 
-// post temp for view
+// send temp for view
 function temp(parsed_json) {
   var temp_f = parsed_json.current_observation.temp_f;
 
