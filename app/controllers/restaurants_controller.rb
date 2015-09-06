@@ -1,8 +1,8 @@
 class RestaurantsController < ApplicationController
   def drink
-    @restaurants = search_client.businesses(params[:drink], session[:location]['latitude'], session[:location]['longitude'])
+    restaurants = search_client.businesses(params[:drink], session[:location]['latitude'], session[:location]['longitude'])
 
-    render json: @restaurants
+    render json: restaurants
   end
 
   def search_client

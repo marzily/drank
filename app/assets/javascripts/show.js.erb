@@ -12,7 +12,9 @@ function initMap() {
 
   userMarker();
   geocoder();
-  loadRestaurants();
+
+  var drink = { drink: $('#recommended').text() };
+  loadRestaurants(drink);
 }
 
 // lat, lng
@@ -95,18 +97,17 @@ function temp(parsed_json) {
   });
 }
 
-function loadRestaurants() {
-  var drink = {drink: $('#recommended').text() };
-
-  $.ajax({  url: "/drink",
-            type: "GET",
-            data: drink,
-            dataType: "json",
-            success: restaurantMarkers,
-            error: function(message) {
-                console.error(message);
-            }
-        });
+function loadRestaurants(drink) {
+  $.ajax({
+    url: "/drink",
+    type: "GET",
+    data: drink,
+    dataType: "json",
+    success: restaurantMarkers,
+    error: function(message) {
+        console.error(message);
+    }
+  });
 }
 
 var markers = [];
