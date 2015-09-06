@@ -13,5 +13,4 @@ Rails.application.routes.draw do
   get '/current_conditions', to: 'weather#current_conditions'
 
   get '/drink', to: 'restaurants#drink'
-  # add drink type as /:drink_type
 end

@@ -5,7 +5,9 @@ class RestaurantsController < ApplicationController
     render json: restaurants
   end
 
-  def search_client
-    @search_client ||= SearchAPI.new
-  end
+  private
+
+    def search_client
+      @search_client ||= SearchAPI.new
+    end
 end
