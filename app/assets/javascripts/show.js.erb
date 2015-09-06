@@ -1,23 +1,112 @@
 // map
 var map;
+var coordinates;
 function initMap() {
-  var coordinates = coords();
+  coordinates = coords();
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: coordinates,
-    zoom: 13
+    zoom: 13,
+    scrollwheel: false
   });
 
-  var marker = new google.maps.Marker({
+  userMarker();
+  geocoder();
+  loadRestaurants();
+}
+
+// lat, lng
+function coords() {
+  return { lat: $('#coordinates').data('lat'),
+           lng: $('#coordinates').data('lng') };
+}
+
+function userMarker() {
+  new google.maps.Marker({
     position: coordinates,
     map: map,
     icon: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
   });
+}
 
+function geocoder() {
   var geocoder = new google.maps.Geocoder;
-  geocoder.geocode({'location': coordinates}, loadDash);
+  geocoder.geocode({'location': coordinates}, setLocation);
+}
 
-  var restaurants = $('#restaurants').data('restaurants');
-  restaurantMarkers(restaurants);
+function setLocation(results, status) {
+  if (status === 'OK') var components = results[1].address_components;
+
+  var location = {};
+  components.forEach(function(address_obj) {
+    for (var prop in address_obj) {
+      if (prop === 'types') {
+        if (address_obj[prop].indexOf('locality') !== -1) {
+          location.city = address_obj.long_name;
+        } else if (address_obj[prop].indexOf('administrative_area_level_1') !== -1) {
+          location.state = address_obj.short_name;
+        }
+      }
+    }
+  });
+
+  loadDash(location);
+}
+
+// load details to dashboard
+function loadDash(location) {
+  postCityState(location);
+  currentConditions(location);
+}
+
+function postCityState(location) {
+  $.ajax({
+    url: "/city_state",
+    type: "POST",
+    data: location,
+    error: function(message) {
+      console.error(message);
+    }
+  });
+}
+
+// weather
+function currentConditions(location) {
+  var city = location.city.indexOf(" ") !== -1 ? location.city.replace(" ", "_") : location.city;
+
+  $.ajax({
+    url: "https://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + location.state + "/" + city + ".json",
+    dataType: "jsonp",
+    success: temp
+  });
+}
+
+// post current temp
+function temp(parsed_json) {
+  var temp_f = parsed_json.current_observation.temp_f;
+
+  $.ajax({
+    url: "/current_conditions",
+    type: "POST",
+    data: { temp_f: temp_f },
+    error: function(message) {
+      console.error(message);
+    }
+  });
+}
+
+function loadRestaurants() {
+  var drink = {drink: $('#recommended').text() };
+
+  $.ajax({  url: "/drink",
+            type: "GET",
+            data: drink,
+            dataType: "json",
+            success: restaurantMarkers,
+            error: function(message) {
+                console.error(message);
+            }
+        });
 }
 
 var markers = [];
@@ -65,88 +154,15 @@ function restaurantMarkers(restaurants) {
   });
 }
 
-
-// lat, lng
-function coords() {
-  return { lat: $('#coordinates').data('lat'),
-           lng: $('#coordinates').data('lng') };
-}
-
-// load details to dashboard
-function loadDash(results, status) {
-  if (status === 'OK') {
-    var components = results[1]['address_components'];
-  }
-
-  var city;
-  var state;
-  components.forEach(function(address_obj) {
-    for (var prop in address_obj) {
-      if (prop === 'types') {
-        if (address_obj[prop].indexOf('locality') !== -1) {
-          city = address_obj['long_name'];
-        } else if (address_obj[prop].indexOf('administrative_area_level_1') !== -1) {
-          state = address_obj['short_name'];
-        }
-      }
-    }
-  });
-
-  postCityState(city, state);
-  currentConditions(city, state);
-}
-
-function postCityState(city, state) {
-  $.ajax({ url: "/city_state",
-           type: "POST",
-           data: { city: city,
-                   state: state },
-           error: function(message) {
-              console.error(message);
-           }
-         });
-}
-
-// weather
-function currentConditions(city, state) {
-  var cityName = city.indexOf(" ") !== -1 ? city.replace(" ", "_") : city;
-
-  $.ajax({
-    url: "https://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + state + "/" + cityName + ".json",
-    dataType: "jsonp",
-    success: temp
-  });
-}
-
-// post current temp
-function temp(parsed_json) {
-  var temp_f = parsed_json['current_observation']['temp_f'];
-  $.ajax({ url: "/current_conditions",
-           type: "POST",
-           data: { temp_f: temp_f },
-           error: function(message) {
-              console.error(message);
-           }
-         });
-}
-
-// function drinkRestaurants() {
-//   $.ajax({ url: "/drink",
-//            type: "POST",
-//            data: { drink: $('#recommended').text() },
-//            success: dropdownItemSelect,
-//            error: function(message) {
-//               console.error(message);
-//            }
-//          });
-// }
-
 function dropdownItemSelect() {
-  $('.dropdown-menu').children().children().on("click", updateRecommended);
+  $('.dropdown-menu').children().children().on("click", function(drinkOption) {
+    updateRecommended(drinkOption);
+  });
+
 }
 
-function updateRecommended() {
-  var drink = { drink: $(this).text() };
+function updateRecommended(drinkOption) {
+  var drink = { drink: $(drinkOption).text() };
   $.ajax({  url: "/drink",
             type: "GET",
             data: drink,
