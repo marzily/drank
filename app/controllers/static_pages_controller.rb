@@ -4,7 +4,9 @@ class StaticPagesController < ApplicationController
   def landing_page
   end
 
-  def reroute_auth_user
-    redirect_to users_path if signed_in?
-  end
+  private
+  
+    def reroute_auth_user
+      redirect_to users_path if signed_in?
+    end
 end

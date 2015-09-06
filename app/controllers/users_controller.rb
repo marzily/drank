@@ -4,10 +4,11 @@ class UsersController < ApplicationController
   def show
     @drinks = Weather.current_range(session[:temp_f]).drinks
     @recommended = @drinks.sample.drink_type
-    @restaurants = SearchAPI.new.businesses(@recommended, session[:location]['latitude'], session[:location]['longitude'])
   end
 
-  def reroute_unauth_user
-    redirect_to root_path unless signed_in?
-  end
+  private
+
+    def reroute_unauth_user
+      redirect_to root_path unless signed_in?
+    end
 end
