@@ -7,34 +7,43 @@
 <%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
 <% end %>
 
-<div id="weather">
-  <% if session[:location]['city'].nil? || session[:location]['state'].nil? %>
-    <p>Unable to access your current location. Please try the following:</p>
-    <ol>
-      <li>Ensure that geolocation is enabled in your broswer.</li>
-      <li>Refresh your browser.</li>
-   </ol>
-  <% else %>
-    <h1><%= session[:location]['city'] %>, <%= session[:location]['state'] %></h1>
-    <h1><%= session[:temp_f] %></h1>
-  <% end %>
-</div>
+<div class="container dashboard">
+  <div class="row">
+    <div class="col-md-12 text-center">
 
-<h4>This weather is perfect for...
-  <div class="btn-group">
-      <button type="button" class="btn btn-default" id="recommended"><%= @recommended %></button>
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="caret"></span>
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <ul class="dropdown-menu">
-        <% @drinks.each do |drink| %>
-          <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
+      <div id="weather">
+        <% if session[:location]['city'].nil? || session[:location]['state'].nil? %>
+          <p>Unable to access your current location. Please try the following:</p>
+          <ol>
+            <li>Ensure that geolocation is enabled in your broswer.</li>
+            <li>Refresh your browser.</li>
+         </ol>
+        <% else %>
+          <h2><%= session[:location]['city'] %>, <%= session[:location]['state'] %></h2>
+          <h1><%= session[:temp_f].to_i %> &#8457;</h1>
         <% end %>
-      </ul>
-  </div>
-!</h4>
+      </div>
 
+      <h3>This weather is perfect for...
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" id="recommended"><%= @recommended %></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <% @drinks.each do |drink| %>
+                <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
+              <% end %>
+            </ul>
+        </div>
+      !</h3>
+
+
+
+    </div>
+  </div>
+</div>
 <div id="map"></div>
 
 <script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_browser_key'] %>&callback=initMap'></script>
