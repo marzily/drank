@@ -5257,33 +5257,15 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Lato", sans-serif;
-  color: white; }
-
-#map {
-  height: 80%;
-  width: 80%; }
-
-.restaurant h5 {
-  margin-bottom: 3px; }
-
-.restaurant p {
-  margin: 1px; }
-
-.restaurant ul {
-  margin-top: 6px;
-  padding-left: 0; }
-
-.restaurant li {
-  display: inline; }
+  font-family: "Lato", sans-serif; }
 
 .landing-page-content {
   text-align: center;
   margin-top: 180px;
+  padding-top: 40px;
   background: rgba(255, 255, 255, 0.5);
-  padding-bottom: 20px;
-  width: 300px;
-  font-weight: bold; }
+  width: 375px;
+  height: 250px; }
 
 .landing-page-content h1 {
   color: #383838;
@@ -5293,16 +5275,27 @@ button {
   margin: auto;
   padding: auto; }
 
-.user-show {
-  text-align: center; }
+.dashboard {
+  background: rgba(255, 255, 255, 0.5);
+  width: 80%;
+  margin-top: 50px; }
+
+#weather h2 {
+  font-size: 300%;
+  font-weight: bold; }
 
 #weather h1 {
-  font-size: 500%;
-  font-weight: bold; }
+  font-size: 500%; }
+
+li {
+  text-align: left; }
 
 #map {
   height: 80%;
-  width: 80%; }
+  width: 80%;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 80px; }
 
 .restaurant h5 {
   margin-bottom: 3px; }
