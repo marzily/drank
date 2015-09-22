@@ -4,22 +4,26 @@
 
 <%= render partial: "navbar" %>
 
-<%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
+<% if session[:location] %>
+  <%= content_tag :div, id: "coordinates", data: {lat: session[:location]['latitude'], lng: session[:location]['longitude']} do %>
+  <% end %>
 <% end %>
 
 <div class="container dashboard">
   <div class="row">
-    <div class="col-lg-4 text-center">
-    </div>
-    <div class="col-lg-4 text-center">
+    <div class="col-lg-12 text-center">
 
       <div id="weather">
         <% if session[:location]['city'].nil? || session[:location]['state'].nil? %>
           <p>Unable to access your current location. Please try the following:</p>
-          <ol>
-            <li>Ensure that geolocation is enabled in your broswer.</li>
-            <li>Refresh your browser.</li>
-         </ol>
+          <table>
+            <tr>
+              <td>1.&nbsp;</td><td>Ensure that geolocation is enabled in your broswer.</td>
+            </tr>
+            <tr>
+              <td>2.&nbsp;</td><td>Refresh your browser.</td>
+            </tr>
+          </table>
         <% else %>
           <h2><%= session[:location]['city'] %>, <%= session[:location]['state'] %></h2>
           <h1><%= session[:temp_f].to_i %> &#8457;</h1>
