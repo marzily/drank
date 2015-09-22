@@ -5279,6 +5279,7 @@ button {
   background: rgba(255, 255, 255, 0.5);
   width: 1090px;
   margin-top: 50px;
+  padding-top: 10px;
   padding-bottom: 10px; }
 
 #weather {

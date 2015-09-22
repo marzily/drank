@@ -22,6 +22,7 @@ function postCoords(coordinates) {
     type: "POST",
     data: coordinates,
     success: function() {
+       enableLogin();
        console.log(coordinates);
     },
     error: function(message){
@@ -30,6 +31,11 @@ function postCoords(coordinates) {
   });
 }
 
+function enableLogin() {
+  $(".button_to").attr("method", "post");
+}
+
 $(document).ready(function() {
+  $(".button_to").removeAttr("method");
   extractCoordinates();
 });
