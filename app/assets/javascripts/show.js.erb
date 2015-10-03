@@ -2,6 +2,8 @@
 var map;
 var coordinates;
 function initMap() {
+  coordinates = coords();
+
   map = new google.maps.Map(document.getElementById('map'), {
     center: coordinates,
     zoom: 13,
@@ -184,6 +186,5 @@ function resetMarkers(drink) {
 }
 
 $(document).ready(function() {
-  coordinates = coords();
   dropdownItemSelect();
 });
