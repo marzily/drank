@@ -1,9 +1,8 @@
 function extractCoordinates() {
   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(coords);
+    navigator.geolocation.getCurrentPosition(coords);
   } else {
-      var x = document.getElementById("weather");
-      x.innerHTML = "Geolocation is not supported by this browser.";
+    alert("Geolocation is not supported by this browser.");
   }
 }
 
@@ -22,20 +21,35 @@ function postCoords(coordinates) {
     type: "POST",
     data: coordinates,
     success: function() {
-       enableLogin();
-       console.log(coordinates);
+      enableLogin();
+      console.log(coordinates);
     },
     error: function(message){
-       console.error(message);
+      console.error(message);
     }
   });
 }
 
 function enableLogin() {
+  $(".button_to").attr("action", "/auth/twitter");
   $(".button_to").attr("method", "post");
 }
 
-$(document).ready(function() {
+function waitForGeolocation() {
+  $(".button_to").attr("action", "#");
   $(".button_to").removeAttr("method");
+}
+
+function geolocationPopUp() {
+  $(".button_to").click(function() {
+    if ($(".button_to").attr("method") === undefined) {
+      alert("Please wait for geolocation to load.");
+    }
+  });
+}
+
+$(document).ready(function() {
   extractCoordinates();
+  waitForGeolocation();
+  geolocationPopUp();
 });
