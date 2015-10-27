@@ -8,6 +8,7 @@ RSpec.feature "user site access", type: :feature do
                   "state" => "CO",
                   "latitude" => "39.7392",
                   "longitude" => "-104.9903" },
+      user_id: User.last ? User.last.id : nil
     }
   end
 
@@ -30,8 +31,7 @@ RSpec.feature "user site access", type: :feature do
                      secret: "chocolate chip pancake" }
     })
 
-    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session.merge({temp_f: "88"}))
-    # ApplicationController.session.stub(:[]).with(:temp_f).and_return("88")
+    allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
   end
 
   scenario "logging in with twitter omniauth" do
@@ -63,10 +63,9 @@ RSpec.feature "user site access", type: :feature do
     click_link "Logout"
     expect(current_path).to eq root_path
 
-    #
-    # click_button "Login"
-    # expect(current_path).to eq "/users"
-    # expect(page).to have_content("Margie")
-    # expect(page).to have_content("Logout")
+    click_button "Login"
+    expect(current_path).to eq "/users"
+    expect(page).to have_content("Margie")
+    expect(page).to have_content("Logout")
   end
 end
