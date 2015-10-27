@@ -30,7 +30,7 @@ RSpec.feature "user site access", type: :feature do
     })
 
     allow_any_instance_of(ApplicationController).to receive(:session).and_return(session)
-    allow_any_instance_of(UsersHelper).to receive(:drinks_by_temp).and_return([drink])
+    
     # allow_any_instance_of(UsersController).to receive(:restaurants).and_return(["Chipotle"])
   end
 
@@ -39,15 +39,16 @@ RSpec.feature "user site access", type: :feature do
     expect(page.status_code).to eq 200
     expect(current_path).to eq root_path
 
-    click_link "Login"
+    click_button "Login"
     expect(current_path).to eq "/users"
+    save_and_open_page
     expect(page).to have_content("Margie")
     expect(page).to have_link("Logout")
   end
 
   scenario "logging out" do
     visit "/"
-    click_link "Login"
+    click_button "Login"
     expect(current_path).to eq "/users"
 
     click_link "Logout"
@@ -57,13 +58,13 @@ RSpec.feature "user site access", type: :feature do
 
   scenario "returning user" do
     visit "/"
-    click_link "Login"
+    click_button "Login"
     expect(current_path).to eq "/users"
 
     click_link "Logout"
     expect(current_path).to eq root_path
 
-    click_link "Login"
+    click_button "Login"
     expect(current_path).to eq "/users"
     expect(page).to have_content("Margie")
     expect(page).to have_content("Logout")

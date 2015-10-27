@@ -47,7 +47,7 @@ RSpec.describe Weather, type: :model do
     end
 
     it "returns the mild temperature range" do
-      expect(Weather.mild.min_temp).to eq 70
+      expect(Weather.mild.min_temp).to eq 66
     end
 
     it "returns the hot temperature range" do
@@ -55,7 +55,7 @@ RSpec.describe Weather, type: :model do
     end
 
     it "returns the appropriate temperature range given the current temp" do
-      expect(Weather.current_range(88).min_temp).to eq 70
+      expect(Weather.current_range(88).min_temp).to eq 66
       expect(Weather.current_range(50).min_temp).to be_nil
       expect(Weather.current_range(95).min_temp).to eq 90
     end
