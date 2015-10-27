@@ -17,6 +17,7 @@ RSpec.describe UsersController, type: :controller do
   before(:each) do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     allow_any_instance_of(UsersController).to receive(:location).and_return(location)
+    allow_any_instance_of(UsersController).to receive(:session).and_return({temp_f: "80"})
   end
 
   describe "GET #show" do

@@ -11,6 +11,6 @@ RSpec.feature "landing page", type: :feature do
   end
 
   it "has a link to login" do
-    expect(page).to have_link "Login"
+    expect(page).to have_button "Login"
   end
 end
