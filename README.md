@@ -1,26 +1,13 @@
-### drank
+# drank
 
-### Pitch
+Production Site: https://dranks.herokuapp.com
 
 Find restaurants to buy drinks based on your current location and the weather.
 
-### Problem
-
-It's 50 degrees outside, where to buy hot chocolate? It's 90 degrees outside,
-where to buy a nice cold strawberry smoothie? It's crunch time at Turing,
-where to get some soylent?
-
-### Solution
-
-https://dranks.herokuapp.com
-
-### Target Audience
-
-Teens, young adults, working professionals.
+### Stack
+ * Ruby on Rails, PostgreSQL database, Puma server, Bootstrap, Ruby, RSpec, Javascript, jQuery, HTML, CSS, SASS
 
 ### Integrations
 
-* Which APIs will you use?
-    Weather.com, Yelp, Google Javascript, Google Geocoding, navigator
-* Which OAuth integration are you planning to use?
-    Twitter
+* Site uses the following APIs: Weather.com, Yelp, Google Javascript, Google Geocoding, navigator.
+* Site Access is configured with Twitter OAuth.

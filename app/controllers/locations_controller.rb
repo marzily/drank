@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
   def city_state
     session[:location][:city]  = params[:city]
     session[:location][:state] = params[:state]
+    
     render nothing: true
   end
 end

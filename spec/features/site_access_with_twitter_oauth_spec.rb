@@ -8,7 +8,7 @@ RSpec.feature "user site access", type: :feature do
                   "state" => "CO",
                   "latitude" => "39.7392",
                   "longitude" => "-104.9903" },
-      user_id: User.last ? User.last.id : nil
+      # user_id: User.last ? User.last.id : nil
     }
   end
 
