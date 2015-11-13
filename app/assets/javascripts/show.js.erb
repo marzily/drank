@@ -66,13 +66,18 @@ function loadDash(location) {
 
 // weather
 function currentConditions(location) {
-  var city = location.city.indexOf(" ") !== -1 ? location.city.replace(" ", "_") : location.city;
+  var city = formatCity(location.city);
 
   $.ajax({
     url: "https://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + location.state + "/" + city + ".json",
     dataType: "jsonp",
     success: temp
   });
+}
+
+// format city string for api
+function formatCity(city) {
+  return city.indexOf(" ") !== -1 ? city.replace(" ", "_") : city;
 }
 
 // send temp for view
