@@ -17,22 +17,23 @@
 
       <h3>This weather is perfect for...
         <div class="btn-group">
-            <button type="button" class="btn btn-default" id="recommended"><%= @recommended %></button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-              <% @drinks.each do |drink| %>
-                <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
-              <% end %>
-            </ul>
+          <button type="button" class="btn btn-default" id="recommended"><%= @recommended %></button>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <% @drinks.each do |drink| %>
+              <li><%= link_to drink.drink_type, "#", class: drink.id %></li>
+            <% end %>
+          </ul>
         </div>
       !</h3>
 
     </div>
   </div>
 </div>
+
 <div id="map"></div>
 
 <script async defer src='https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_browser_key'] %>&callback=initMap'></script>

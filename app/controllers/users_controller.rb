@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # before_action :reroute_unauth_user
 
   def show
-    @drinks = Weather.current_range(session[:temp_f]).drinks
+    @drinks = Weather.current_range(params[:temp_f]).drinks
     @recommended = @drinks.sample.drink_type
   end
 

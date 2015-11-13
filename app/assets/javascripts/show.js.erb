@@ -71,7 +71,7 @@ function currentConditions(location) {
   $.ajax({
     url: "https://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + location.state + "/" + city + ".json",
     dataType: "jsonp",
-    success: tempToView
+    success: renderTemp
   });
 }
 
@@ -80,18 +80,17 @@ function formatCity(city) {
   return city.indexOf(" ") !== -1 ? city.replace(" ", "_") : city;
 }
 
-function tempToView(parsed_json) {
+function renderTemp(parsed_json) {
   var temp_f = parsed_json.current_observation.temp_f;
 
   $('#weather').append('<h1>' + temp_f + ' &#8457;</h1>');
+  temp(temp_f);
 }
 
-// send temp for view
-function temp(parsed_json) {
-  var temp_f = parsed_json.current_observation.temp_f;
-
+// send temp for drink
+function temp(temp_f) {
   $.ajax({
-    url: "/current_conditions",
+    url: "/users",
     type: "GET",
     data: { temp_f: temp_f },
     error: function(message) {
