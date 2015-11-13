@@ -60,7 +60,8 @@ function setLocation(results, status) {
 
 // load details to dashboard
 function loadDash(location) {
-  postCityState(location);
+  // postCityState(location);
+  $('#weather').prepend('<h2>' + location.city + ', ' + location.state + '</h2>');
   currentConditions(location);
 }
 
