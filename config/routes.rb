@@ -8,9 +8,6 @@ Rails.application.routes.draw do
   resource :users, only: [:show]
 
   post '/coords', to: 'locations#coords'
-  get '/city_state', to: 'locations#city_state'
-
-  get '/current_conditions', to: 'weather#current_conditions'
-
-  get '/drink', to: 'restaurants#drink'
+  get  '/current_conditions', to: 'weather#current_conditions'
+  get  '/drink', to: 'restaurants#drink'
 end
