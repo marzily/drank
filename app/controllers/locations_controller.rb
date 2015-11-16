@@ -4,11 +4,4 @@ class LocationsController < ApplicationController
                            longitude: params[:longitude] }
     render nothing: true
   end
-
-  def city_state
-    session[:location][:city]  = params[:city]
-    session[:location][:state] = params[:state]
-    
-    render nothing: true
-  end
 end

@@ -60,39 +60,37 @@ function setLocation(results, status) {
 
 // load details to dashboard
 function loadDash(location) {
-  postCityState(location);
+  $('#weather').prepend('<h2>' + location.city + ', ' + location.state + '</h2>');
   currentConditions(location);
-}
-
-// send city, state for view
-function postCityState(location) {
-  $.ajax({
-    url: "/city_state",
-    type: "GET",
-    data: location,
-    error: function(message) {
-      console.error(message);
-    }
-  });
 }
 
 // weather
 function currentConditions(location) {
-  var city = location.city.indexOf(" ") !== -1 ? location.city.replace(" ", "_") : location.city;
+  var city = formatCity(location.city);
 
   $.ajax({
     url: "https://api.wunderground.com/api/20e32ff3e81ba1e5/geolookup/conditions/q/" + location.state + "/" + city + ".json",
     dataType: "jsonp",
-    success: temp
+    success: renderTemp
   });
 }
 
-// send temp for view
-function temp(parsed_json) {
+// format city string for api
+function formatCity(city) {
+  return city.indexOf(" ") !== -1 ? city.replace(" ", "_") : city;
+}
+
+function renderTemp(parsed_json) {
   var temp_f = parsed_json.current_observation.temp_f;
 
+  $('#weather').append('<h1>' + temp_f + ' &#8457;</h1>');
+  temp(temp_f);
+}
+
+// send temp for drink
+function temp(temp_f) {
   $.ajax({
-    url: "/current_conditions",
+    url: "/users",
     type: "GET",
     data: { temp_f: temp_f },
     error: function(message) {

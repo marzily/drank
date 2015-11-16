@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "weather display on user show page", type: :feature do
+RSpec.feature "weather display on user show page", type: :feature, js: true do
   let(:user) do
     User.create({ name: "Margie",
                   screen_name: "margie",
@@ -12,9 +12,7 @@ RSpec.feature "weather display on user show page", type: :feature do
 
   let(:session) do
     { temp_f: '88',
-      location: { "city" => "Denver",
-                  "state" => "CO",
-                  "latitude" => "39.7392",
+      location: { "latitude" => "39.7392",
                   "longitude" => "-104.9903" },
       user_id: user.id }
   end
@@ -36,11 +34,12 @@ RSpec.feature "weather display on user show page", type: :feature do
   end
 
   scenario "displays user's location" do
-    expect(page).to have_content(session[:location]["city"])
-    expect(page).to have_content(session[:location]["state"])
+    # save_and_open_page
+    expect(page).to have_content("Denver")
+    expect(page).to have_content("CO")
   end
 
-  scenario "displays current weather for location" do
+  xscenario "displays current weather for location" do
     expect(page).to have_content("88")
   end
 end
