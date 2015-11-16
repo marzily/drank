@@ -7,6 +7,6 @@ Rails.application.routes.draw do
 
   resource :users, only: [:show]
 
-  post '/coords', to: 'locations#coords'
-  get  '/drink', to: 'restaurants#drink'
+  get '/coords', to: 'locations#coords'
+  get '/drink', to: 'restaurants#drink'
 end
