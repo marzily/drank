@@ -43,7 +43,7 @@ function waitForGeolocation() {
 function geolocationPopUp() {
   $(".button_to").click(function() {
     if ($(".button_to").attr("method") === undefined) {
-      alert("Please wait for geolocation to load.");
+      alert("Please ensure geolocation is allowed and wait for geolocation to load.");
     }
   });
 }
