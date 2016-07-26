@@ -7,7 +7,7 @@ class Weather < ActiveRecord::Base
   has_many  :drinks, through: :weather_drinks
 
   def temp_range
-    if min_temp && max_temp && min_temp > max_temp
+    if min_temp > max_temp
       errors.add(:max_temp, "min temp cannot be greater than max temp")
     end
   end
