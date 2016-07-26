@@ -1,7 +1,7 @@
 # weather ranges
-cold = Weather.create(min_temp: nil, max_temp: 65)
+cold = Weather.create(min_temp: -50, max_temp: 65)
 mild = Weather.create(min_temp: 66, max_temp: 89)
-hot = Weather.create(min_temp: 90, max_temp: nil)
+hot = Weather.create(min_temp: 90, max_temp: 150)
 
 # drinks
 hot_drinks = [ "hot chocolate", "coffee", "tea", "lattes", "mochas", "espresso",
