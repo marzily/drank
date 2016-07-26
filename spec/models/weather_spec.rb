@@ -37,8 +37,8 @@ RSpec.describe Weather, type: :model do
 
   describe "temperature ranges" do
     before(:each) do
-      Weather.create(min_temp: nil, max_temp: 69)
-      Weather.create(min_temp: 70, max_temp: 89)
+      Weather.create(min_temp: nil, max_temp: 65)
+      Weather.create(min_temp: 66, max_temp: 89)
       Weather.create(min_temp: 90, max_temp: nil)
     end
 

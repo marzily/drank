@@ -21,7 +21,3 @@ end
 hot_drink_objects         = create_drinks(hot_drinks, cold)
 iced_drink_objects        = create_drinks(iced_drinks, mild)
 ice_blended_drink_objects = create_drinks(ice_blended_drinks, hot)
-
-iced_drink_objects[0..-2].each do |drink|
-  WeatherDrink.create(drink_id: drink.id, weather_id: hot.id)
-end
