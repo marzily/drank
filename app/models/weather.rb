@@ -21,7 +21,7 @@ class Weather < ActiveRecord::Base
   end
 
   def self.hot
-    @hot ||= Weather.find_by(max_temp: nil)
+    @hot ||= Weather.find_by(min_temp: 90)
   end
 
   def self.current_range(current_temp)
