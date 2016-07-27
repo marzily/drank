@@ -12,12 +12,24 @@ iced_drinks = [ "iced tea", "juice", "iced coffee", "iced espresso drinks",
 
 ice_blended_drinks = [ "smoothies", "ice blended drinks", "slushies", "shakes" ]
 
-def create_drinks(drink_types, weather)
-  drink_types.map do |drink_type|
-    weather.drinks.create(drink_type: drink_type)
-  end
+hot_drinks.each do |drink|
+  cold.drinks.create(drink_type: drink)
 end
 
-hot_drink_objects         = create_drinks(hot_drinks, cold)
-iced_drink_objects        = create_drinks(iced_drinks, mild)
-ice_blended_drink_objects = create_drinks(ice_blended_drinks, hot)
+iced_drinks.each do |drink|
+  mild.drinks.create(drink_type: drink)
+end
+
+ice_blended_drinks.each do |drink|
+  hot.drinks.create(drink_type: drink)
+end
+
+# def create_drinks(drink_types, weather)
+#   drink_types.map do |drink_type|
+#     weather.drinks.create(drink_type: drink_type)
+#   end
+# end
+#
+# hot_drink_objects         = create_drinks(hot_drinks, cold)
+# iced_drink_objects        = create_drinks(iced_drinks, mild)
+# ice_blended_drink_objects = create_drinks(ice_blended_drinks, hot)

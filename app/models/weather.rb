@@ -13,7 +13,7 @@ class Weather < ActiveRecord::Base
   end
 
   def self.cold
-    @cold ||= Weather.find_by(min_temp: nil)
+    @cold ||= Weather.find_by(max_temp: 65)
   end
 
   def self.mild
