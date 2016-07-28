@@ -12,7 +12,7 @@ RSpec.feature "weather display on user show page", type: :feature, js: true do
 
   let(:session) do
     { temp_f: '88',
-      location: { "latitude" => "39.7392",
+      location: { "latitude"  => "39.7392",
                   "longitude" => "-104.9903" },
       user_id: user.id }
   end

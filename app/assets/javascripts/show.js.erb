@@ -93,6 +93,7 @@ function temp(temp_f) {
     url: "/users",
     type: "GET",
     data: { temp_f: temp_f },
+    success: console.log(temp_f),
     error: function(message) {
       console.error(message);
     }
