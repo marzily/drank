@@ -92,8 +92,9 @@ function temp(temp_f) {
   $.ajax({
     url: "/users",
     type: "GET",
-    data: { "temp_f": '"' + temp_f + '"' },
-    success: console.log(temp_f),
+    dataType: "json",
+    data: { "temp_f": temp_f.toString() },
+    success: console.log(temp_f.toString()),
     error: function(message) {
       console.error(message);
     }
