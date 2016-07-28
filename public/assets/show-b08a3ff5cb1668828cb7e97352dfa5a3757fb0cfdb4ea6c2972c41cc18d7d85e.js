@@ -93,8 +93,7 @@ function temp(temp_f) {
     url: "/users",
     type: "GET",
     dataType: "json",
-    data: { "temp_f": temp_f.toString() },
-    success: console.log(temp_f.toString()),
+    data: { "temp_f": temp_f },
     error: function(message) {
       console.error(message);
     }
