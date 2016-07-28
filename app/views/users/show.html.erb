@@ -14,7 +14,8 @@
     <div class="col-lg-12 text-center">
 
       <div id="weather"></div>
-
+<%= puts params[:temps_f] %>
+<%= puts Weather.current_range(params[:temp_f]) %>
       <h3>This weather is perfect for...
         <div class="btn-group">
           <button type="button" class="btn btn-default" id="recommended"><%= @recommended %></button>
