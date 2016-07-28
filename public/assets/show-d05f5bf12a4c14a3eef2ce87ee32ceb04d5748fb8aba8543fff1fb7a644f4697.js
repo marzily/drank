@@ -92,8 +92,8 @@ function temp(temp_f) {
   $.ajax({
     url: "/users",
     type: "GET",
-    data: { temp_f: temp_f },
-    success: console.log(temp_f),
+    data: { "temp_f": temp_f },
+    success: console.log(message),
     error: function(message) {
       console.error(message);
     }
