@@ -9,7 +9,7 @@ class Weather < ActiveRecord::Base
   def temp_range
     if min_temp && max_temp && (min_temp > max_temp)
       errors.add(:max_temp, "min temp cannot be greater than max temp")
-    end
+end
   end
 
   def self.cold
