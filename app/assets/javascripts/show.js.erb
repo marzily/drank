@@ -92,9 +92,8 @@ function temp(temp_f) {
   $.ajax({
     url: "/users",
     type: "GET",
-    contentType: "application/json; charset=utf-8",
     dataType: "json",
-    data: { "temp_f" : temp_f },
+    data: { "temp_f": temp_f },
     error: function(message) {
       console.error(message);
     }
