@@ -17,11 +17,11 @@ hot_drinks.each do |drink|
 end
 
 iced_drinks.each do |drink|
-  mild.drinks.create(drink_type: drink)
+  cold.drinks.create(drink_type: drink)
 end
 
 ice_blended_drinks.each do |drink|
-  hot.drinks.create(drink_type: drink)
+  cold.drinks.create(drink_type: drink)
 end
 
 # def create_drinks(drink_types, weather)

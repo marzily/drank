@@ -95,6 +95,9 @@ function temp(temp_f) {
     contentType: "application/json; charset=utf-8",
     dataType: "json",
     data: { "temp_f" : temp_f },
+    success: function(message) {
+      console.log(message);
+    }
     error: function(message) {
       console.error(message);
     }
