@@ -43,7 +43,7 @@ function waitForGeolocation() {
 function geolocationPopUp() {
   $(".button_to").click(function() {
     if ($(".button_to").attr("method") === undefined) {
-      alert("Please ensure that you have entered the SSL site: https://dranks.herokuapp.com. \n\nPlease ensure geolocation is allowed and wait for geolocation to load.");
+      alert("Please wait for geolocation to load.");
     }
   });
 }
